@@ -1,0 +1,264 @@
+<div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h1 class="card-title">Update Employee</h1>
+            </div>
+            <section fxLayout="row wrap" fxLayoutAlign="center center">
+              <mat-card fxFlex="500px" fxFlex.xs="100%">
+                <div class="container container-fluid">
+                
+  
+                  <form
+                  [formGroup]="employeeForm"
+                  autocomplete="off"
+                  novalidate
+                  (ngSubmit)="updateemployee(employeeForm.value)"
+                  fxLayout="column wrap"
+                  fxLayoutAlign="center center"
+                  fxLayoutGap="50px"
+                  >
+                    <mat-card-content>
+                      <div class="col-md-4"></div>
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Employee's Id"
+                          formControlName="emp_id"
+                          id="employee_id"
+                        />
+                        <mat-hint align="end"
+                          >Not more then 60 characters long.</mat-hint
+                        >
+                        <mat-error *ngIf="hasError('f_name', 'required')"
+                          >Employee Id is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('f_name', 'maxlength')"
+                          >You have more than 60 characters</mat-error
+                        >
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Employee's First name"
+                          formControlName="f_name"
+                          id="f_name"
+                        />
+                        <mat-hint align="end"
+                          >Not more then 60 characters long.</mat-hint
+                        >
+                        <mat-error *ngIf="hasError('f_name', 'required')"
+                          >First Name is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('f_name', 'maxlength')"
+                          >You have more than 60 characters</mat-error
+                        >
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Employee's Last name"
+                          formControlName="l_name"
+                          id="l_name"
+                        />
+                        <mat-hint align="end"
+                          >Not more then 60 characters long.</mat-hint
+                        >
+                        <mat-error *ngIf="hasError('l_name', 'required')"
+                          >Last Name is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('l_name', 'maxlength')"
+                          >You have more than 60 characters</mat-error
+                        >
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Employee's email"
+                          formControlName="email"
+                          id="email"
+                        />
+                        <mat-hint align="end"
+                          >Not more then 100 characters long.</mat-hint
+                        >
+                        <mat-error *ngIf="hasError('email', 'required')"
+                          >Email is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('email', 'maxlength')"
+                          >You have more than 100 characters</mat-error
+                        >
+                        <mat-error *ngIf="hasError('email', 'email')"
+                          >Please input a valid email</mat-error
+                        >
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <input
+                          id="mysecretpassword"
+                          type="password"
+                          formControlName="password"
+                          placeholder="Password"
+                          matInput
+                          showHideInput
+                        />
+                        <i
+                          matSuffix
+                          class="material-icons"
+                          showHideTrigger="mysecretpassword"
+                          [showHideStatus]="{
+                            materialIcon: true,
+                            id: 'mysecretpassword'
+                          }"
+                        ></i>
+                        <mat-hint align="end"
+                          >Password should be min 6 characters</mat-hint
+                        >
+                        <mat-error *ngIf="hasError('password', 'required')"
+                          >password is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('password', 'maxlength')"
+                          >You have more than 100 characters</mat-error
+                        >
+                        <mat-error *ngIf="hasError('password', 'minlength')"
+                          >Password should be min 6 characters</mat-error
+                        >
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="number"
+                          placeholder="Employee's phone no"
+                          formControlName="phone"
+                          id="phone"
+                        />
+                        <mat-hint align="end"
+                          >Not more then 15 characters long.</mat-hint
+                        >
+                        <mat-error *ngIf="hasError('phone', 'required')"
+                          >phone is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('phone', 'maxlength')"
+                          >You have more than 15 characters</mat-error
+                        >
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Employee's Date of Birth </mat-label>
+                        <input matInput [matDatepicker]="picker"  placeholder="Choose a Date "
+                        formControlName="dob"
+                        id="dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      
+                        <mat-error *ngIf="hasError('dob', 'required')"
+                          >date of Birth is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('dob', 'maxlength')"
+                          >You have worng characters</mat-error
+                        >
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Department "
+                          formControlName="dpt"
+                          id="dpt"
+                        />
+                      
+                        <mat-error *ngIf="hasError('dpt', 'required')"
+                          >department is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('dpt', 'maxlength')"
+                          >You have worng characters</mat-error
+                        >
+                      </mat-form-field>
+                      <mat-form-field>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Designation "
+                          formControlName="desig"
+                          id="desig"
+                        />
+                      
+                        <mat-error *ngIf="hasError('desig', 'required')"
+                          >department is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('desig', 'maxlength')"
+                          >You have worng characters</mat-error
+                        >
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Employee's Joining Date</mat-label>
+                        <input matInput [matDatepicker]="picker1" placeholder="Choose a Date"  formControlName="doj">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      
+                        <mat-error *ngIf="hasError('doj', 'required')"
+                          >Joing date  is required</mat-error
+                        >
+                        <mat-error *ngIf="hasError('doj', 'maxlength')"
+                          >You have worng characters</mat-error
+                        >
+                      </mat-form-field>
+  
+                      <mat-form-field>
+                        <mat-label>Employee Role</mat-label>
+                        <mat-select formControlName="role">
+                          <mat-option
+                            *ngFor="let role of employee_role"
+                            [value]="role.value"
+                          >
+                            {{role.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field>
+                        <mat-label>Employee Status</mat-label>
+                        <mat-select formControlName="status">
+                          <mat-option
+                            *ngFor="let status of empStatus"
+                            [value]="status.value"
+                          >
+                            {{ status.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          [disabled]="!employeeForm.valid"
+                        >
+                          Update
+                        </button>
+                        <button
+                          type="button"
+                          mat-raised-button
+                          color="warn"
+                          (click)="onCancel()"
+                        >
+                          Cancel
+                        </button>
+                      </mat-card-actions>
+                  </form>
+                </div>
+              </mat-card>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

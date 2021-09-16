@@ -1,0 +1,47 @@
+
+.example-card {
+  max-width: 500px;
+  display: flex;
+ 
+}
+.example1{
+  background: linear-gradient(to right, #99ff66 0%, #66ffcc 100%);
+}
+.example2{
+background: linear-gradient(to left, #ff6699 0%, #ffcc00 100%);
+}
+
+
+.example3{
+background: linear-gradient(to right, #99ff66 0%, #66ffcc 100%);
+}
+.example4{
+background: linear-gradient(to left, #ff6699 0%, #ffcc00 100%);
+
+}
+.example{
+// color: white;
+// background: linear-gradient(to top left, #003300 -5%, #66ccff 85%);
+// background-image: url("../../../assets/abstract-background-design-dark-gray_53876-59277.jpg");
+
+}
+.example-header-image {
+  background-size: cover;
+}
+img {
+  border-radius: 50%;
+}
+.container{
+ text-align: center;
+ display: flex;
+}
+mat-card-content{
+ margin-left: 30px;
+}
+
+*::after,
+*::before {
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
