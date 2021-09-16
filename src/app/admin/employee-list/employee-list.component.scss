@@ -1,0 +1,80 @@
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+ 
+}
+.main-content{
+  margin-left: 40px;
+  margin-right: 40px;
+  min-width: 200px;
+}
+.card-header{
+  background-color:gray;
+}
+th.mat-header-cell {
+    text-align: left;
+    max-width: 600px;
+}
+.mat-18{
+  align-items: center;
+  display: flex;
+}
+.download{
+  margin-left: 15px;
+}
+
+.mat-column-emp_id{
+  width:7%;
+}
+.th-center{
+  text-align: center;
+}
+
+.mat-column-Superkpidetails{
+  width:7%;
+}
+
+.mat-column-Employeekpidetails{
+  width:6%;
+}
+
+.card-header-danger .card-icon,
+.card-header-danger:not(.card-header-icon):not(.card-header-text),
+.card-header-danger .card-text{
+   text-align: center;
+   color: aliceblue;
+    
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content:center;
+}
+.card-header{
+  background: linear-gradient(to left, #ff6699 0%, #ffcc00 100%);
+  text-align: center;
+  color: white;
+  
+}
+// .example{
+//   display: flex;
+//   margin-top: 20px;
+// min-width: 900px;
+  
+// }
+.content{
+  text-align: center;
+  min-width: 200px;
+  color: black;
+}
+mat-form-field{
+  width: 400px;
+  padding: 10px;
+  margin-left: 5px;
+}

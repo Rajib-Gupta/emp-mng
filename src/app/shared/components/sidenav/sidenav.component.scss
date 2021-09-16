@@ -1,0 +1,60 @@
+// src\app\shared\components\sidenav\sidenav.component.scss
+
+.example-container {
+    height: calc(100vh - 64px);
+    flex: auto;
+    overflow: hidden;
+
+    .mat-sidenav {
+      margin: 16px;
+    width: 200px;
+    border-right: none;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    }
+    .mat-sidenav-content {
+      height: calc(100vh - 64px);
+    }
+  }
+  .menu-button {
+    text-transform: capitalize;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .mat-icon-no-color {
+    color: rbga(0, 0, 0, 0.54);
+  }
+  
+  .signout{
+    padding-top: 50px;
+  }
+  .avatar {
+    margin-top: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.name {
+    margin-top: 8px;
+    font-weight: normal;
+}
+
+.designation {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    
+}
+
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+  
+  
+

@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Asign Supervisor</h2>
+
+<form
+[formGroup]="employeeForm"
+autocomplete="off"
+novalidate
+(ngSubmit)="updateemployee(employeeForm.value)"
+>
+<mat-dialog-content>
+  
+    <mat-form-field>
+        <mat-label>Supervisor Name</mat-label>
+        <select  matNativeControl  formControlName="sup_id" >
+          <option *ngFor="let s of super" [value]="s.value"  >
+            {{ s.viewValue }}
+          </option>
+        </select>
+      </mat-form-field>
+   
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary"(click)="save()">Save</button>
+</mat-dialog-actions>
+</form>
