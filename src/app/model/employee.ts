@@ -11,6 +11,8 @@ export interface Admin {
   }
 
   export interface kpiHistory extends Admin{
+    id?:string,
+    givenby_id?:string,
     session:number,
     year:number,
     super_kpi:number,
@@ -18,9 +20,8 @@ export interface Admin {
     total_kpi:number,
     to_emp?:string,
     from_emp?:string,
-    sup_kpi_details?:{
-
-    }
+    sup_kpi_details?:any,
+    emp_kpi_details?:any
   }
   
 
