@@ -23,14 +23,15 @@ export class EmployeeListComponent implements OnInit {
     'employee_id',
     'f_name',
     'l_name',
-    'email',
-    'phone',
-    'dob',
-    'doj',
+   // 'email',
+   // 'phone',
+   // 'dob',
+   // 'doj',
     'sup_id',
     'role',
     'dpt',
     'desig',
+    'details',
     "asign-sup",
     'update',
     'delete'
@@ -148,6 +149,11 @@ export class EmployeeListComponent implements OnInit {
   //   });
   // }
 
+
+  redirectToDetails(id:string){
+    let kpiurl: string = `/admin/get-details/${id}`;
+    this.router.navigate([kpiurl]);
+  }
 
   applyFilter(event: any) {
     const filterQuery = event.target.value.trim().toLowerCase(); // Remove whitespace

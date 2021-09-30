@@ -54,3 +54,51 @@ body{
 h4{
     color:black;
 }
+
+
+//image upload
+
+img {
+    height: 100%;
+    width: 200px;
+    border-radius: 50%;
+  
+  }
+  
+  .hoverable{
+    position: relative;
+    display: block;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .hover-text{
+    color:red;
+    display: block;
+    margin-left: 100px;
+  
+  }
+  .hoverable .hover-text{
+    position: absolute;
+    display: none;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 2;
+  }
+  .hoverable .background{
+    position: absolute;
+    display: none;
+    background-color:rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .hoverable:hover .hover-text{
+    display: block;
+  }
+  .hoverable:hover .background{
+    display: block;
+  }
+  
+  #fileInput{
+    display: none;
+  }

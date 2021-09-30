@@ -1,0 +1,63 @@
+<div class="login-wrapper" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <div class="card-header">
+      <h1 class="card-title">Add New Kpi Session</h1>
+    </div>
+    <br />
+    <form
+      class="example-form"
+      [formGroup]="sessionForm"
+      autocomplete="off"
+      (ngSubmit)="sessionUpdate(sessionForm.value)"
+      fxLayout="column wrap"
+      fxLayoutGap="10px"
+    >
+      <mat-dialog-content>
+        <mat-form-field class="example-full-width">
+          <mat-label>Session Year</mat-label>
+          <select matNativeControl formControlName="year">
+            <option *ngFor="let year of sessionYear" [value]="year.value">
+              {{ year.viewValue }}
+            </option>
+          </select>
+         
+        
+        <mat-error *ngIf="hasError('year', 'required')"
+        >Session Year is required</mat-error>
+       </mat-form-field>
+        <mat-form-field>
+          <mat-label>Session</mat-label>
+          <mat-select formControlName="session">
+            <mat-option *ngFor="let s of session" [value]="s.value">
+              {{ s.viewValue }}
+            </mat-option>          
+          </mat-select>
+          <mat-error *ngIf="hasError('session', 'required')"
+          >Session is required</mat-error>
+        </mat-form-field>
+      
+        <br>
+        <mat-radio-group aria-label="Select an option" formControlName="is_active">
+          <mat-label>Allow Kpi</mat-label>
+          <mat-radio-button class="example-radio-button" *ngFor="let allow of is_active" [value]="allow.value">
+            {{allow.viewValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+       
+        <mat-radio-group aria-label="Select an option" formControlName="is_completed">
+          <mat-label>Completed</mat-label>
+          <mat-radio-button class="example-radio-button" *ngFor="let complete of is_complete" [value]="complete.value">
+            {{complete.viewValue}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-dialog-content>
+      <br>
+      <mat-card-actions>
+        <button class="mat-raised-button mr-2">Submit</button>
+        <button class="mat-raised-button mat-warn" (click)="close()">
+          Close
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

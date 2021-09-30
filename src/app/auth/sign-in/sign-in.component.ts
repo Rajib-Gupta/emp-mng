@@ -1,18 +1,17 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { InteractionService } from 'src/app/service/interaction.service';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-
-  
   Form!: FormGroup;
   loginMode: boolean = true;
 
@@ -21,9 +20,13 @@ export class SignInComponent implements OnInit {
   winMassage: string = ' ';
   error: string = ' ';
 
-  constructor(  private _authservice: AuthService,
+  constructor(
+    private _authservice: AuthService,
     private routes: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private interaction:InteractionService,
+    private hotTost: HotToastService,
+  ) {}
 
   ngOnInit(): void {
     this.Form = new FormGroup({
@@ -32,10 +35,7 @@ export class SignInComponent implements OnInit {
         Validators.required,
         Validators.minLength(6),
       ]),
-      // role: new FormControl('', [
-      //   Validators.required,
-      //   Validators.minLength(1),
-      // ]),
+     
     });
   }
 
@@ -59,25 +59,46 @@ export class SignInComponent implements OnInit {
           (res) => {
             localStorage.clear();
             console.log(res);
-            if(res.data){
-              if (res.data.role ==="1") {
+            if (res.data) {
+              this.interaction.setUser(res.data)
+              if (res.data.role === '1') {
                 // if (role == 1) {
-                  localStorage.setItem('data', JSON.stringify(res.data));
-                  this.toastr.success('You have successfully login!', `Welcome ${res.data.f_name} To Admin Dashboard`);
-                  localStorage.setItem('token', res.token);
-                  this.routes.navigate(['admin/dashboard']);
-                } else {
-                  this.toastr.error('Please cheack email and password!', 'Opps!');
-                }          
-            }
-            else{
-              this.toastr.error('Please cheack email and password!', 'Opps!');
+                localStorage.setItem('data', JSON.stringify(res.data));
+                this.hotTost.success(
+                  `You have successfully login!
+                  Welcome ${res.data.f_name} To Admin Dashboard`
+                );
+                localStorage.setItem('token', res.token);
+                this.routes.navigate(['admin/dashboard']);
+              } else if (res.data.role === '2') {
+                localStorage.setItem('data', JSON.stringify(res.data));
+                this.hotTost.success(
+                  `You have successfully login!
+                  Welcome ${res.data.f_name} To Admin Dashboard`
+                );
+                localStorage.setItem('token', res.token);
+                this.routes.navigate(['/supervisor/sup-profile']);
+              } 
+              else if(res.data.role==='3'){
+                localStorage.setItem('data', JSON.stringify(res.data));
+                this.hotTost.success(
+                  `You have successfully login!
+                  Welcome ${res.data.f_name} To Admin Dashboard`
+                );
+                localStorage.setItem('token', res.token);
+                this.routes.navigate(['employee/emp-profile']);
+              }
+                else {
+                  this.hotTost.error('Please cheack email and password!');
+              }
+            } else {
+              this.hotTost.error('Please cheack email and password!');
             }
           },
 
           (err) => {
-            this.toastr.error('Please cheack email and password!', 'Opps!');
-           // console.log(err);
+            this.hotTost.error('Please cheack email and password!');
+            // console.log(err);
             this.routes.navigate(['/signin']);
           }
         );
@@ -89,6 +110,4 @@ export class SignInComponent implements OnInit {
   onmodeSwitch() {
     this.loginMode = !this.loginMode;
   }
-
-
 }

@@ -1,0 +1,145 @@
+<div class="login-wrapper" fxLayoutAlign="center center">
+    <div class="card-header">
+      <h1 class="card-title">Add New Kpi Session</h1>
+    </div>
+    <br>
+    <mat-card class="box">
+      <form
+        [formGroup]="sessionForm"
+        autocomplete="off"
+        novalidate
+        (ngSubmit)="addKpi()"
+        fxLayout="column wrap"
+        fxLayoutAlign="center center"
+       
+      >
+      
+      <mat-dialog-content>
+        <span class="example-span">Availability</span>
+        <mat-slider
+          thumbLabel
+          formControlName="availability"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+  
+        <span class="example-span">On time Job delivery</span>
+        <mat-slider
+          thumbLabel
+          formControlName="ontime"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+       <br>
+        <span class="example-span">Punctuality</span>
+        <mat-slider
+          thumbLabel
+          formControlName="punctuality"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+  
+        <span class="example-span">Regularity</span>
+        <mat-slider
+          thumbLabel
+          formControlName="regularity"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+        <br>
+        <span class="example-span">Mean Time to Repair</span>
+        <mat-slider
+          thumbLabel
+          formControlName="timetorepair"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+  
+        <span class="example-span">Critical problem solving ability</span>
+        <mat-slider
+          thumbLabel
+          formControlName="criticalproblemsolving"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+        <br>
+        <span class="example-span">Client Handling Ability</span>
+        <mat-slider
+          thumbLabel
+          formControlName="clienthandling"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+  
+        <span class="example-span">Innovative and Adatptive</span>
+        <mat-slider
+          thumbLabel
+          formControlName="innovative"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+        <br>
+        <span class="example-span">Team Player</span>
+        <mat-slider
+          thumbLabel
+          formControlName="teamPlayer"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+        <span class="example-span">Dependibility</span>
+        <mat-slider
+          thumbLabel
+          formControlName="dependibility"
+          [displayWith]="formatLabel"
+          tickInterval="10"
+          step="1"
+          min="0"
+          max="10"
+        >
+        </mat-slider>
+      </mat-dialog-content>
+      <br>
+        <mat-card-actions>
+    <button mat-raised-button color="primary" [disabled]="!sessionForm.valid">Submit</button>
+    <button type="button" mat-raised-button color="warn" (click)="close()">Cancel</button>
+  </mat-card-actions>
+  </form>
+  </mat-card>
+  </div>
+  

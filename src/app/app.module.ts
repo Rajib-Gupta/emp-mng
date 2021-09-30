@@ -12,10 +12,11 @@ import { ShowHidePasswordModule } from 'ngx-show-hide-password';
 import {FontAwesomeModule}from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { AdminModule } from './admin/admin.module';
+// import { JwtModule } from '@auth0/angular-jwt';
+// import { AuthorizationService } from './service/authorization.service';
+import { AuthGuard } from './guard/auth.guard';
 
-
-
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -27,18 +28,19 @@ import { AdminModule } from './admin/admin.module';
     BrowserModule,
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
- 
+    HotToastModule.forRoot(),
+    // JwtModule.forRoot({}),
     HttpClientModule,
     SharedModule, // ? <-- Added
     RouterModule, AppRoutingModule,
     AuthModule,
-    AdminModule,
     FontAwesomeModule,
     ShowHidePasswordModule,
     NgbModule,
   
     ],
-  providers: [],
+  providers: [//AuthorizationService,
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

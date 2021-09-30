@@ -5,9 +5,8 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   email!: AuthResponce;
@@ -16,50 +15,68 @@ export class AuthService {
   emp_email!: EmpResponce;
   emp_password!: EmpResponce;
 
-  constructor(private httpclient: HttpClient, private routes: Router) { }
+  constructor(private httpclient: HttpClient, private routes: Router) {}
 
-  
   public master = (
     email: string,
-    password: string,
+    password: string
     // role: number
   ): Observable<any> => {
-    return this.httpclient.post<LogInResponce>(environment.endPoints.auth.master, {
-      email: email,
-      password: password,
-    });
+    return this.httpclient.post<LogInResponce>(
+      environment.endPoints.auth.master,
+      {
+        email: email,
+        password: password,
+      }
+    );
   };
-
-  
 
   masterLoggedIn() {
     return !!localStorage.getItem('data');
   }
 
-  admin(){
-    var isAdmin=false;
-  var data:any= localStorage.getItem('data');
-  if(data){
-    data=JSON.parse(data) as any;
-    if(data.role==1){
-      isAdmin=true;
+  admin() {
+    var isAdmin = false;
+    var data: any = localStorage.getItem('data');
+    if (data) {
+      data = JSON.parse(data) as any;
+      if (data.role == 1) {
+        isAdmin = true;
+      }
     }
-  }
-  return isAdmin;
+    return isAdmin;
   }
 
+  super() {
+    var isSuper = false;
+    var data: any = localStorage.getItem('data');
+    if (data) {
+      data = JSON.parse(data) as any;
+      if (data.role == 2) {
+        isSuper = true;
+      }
+    }
+    return isSuper;
+  }
+
+  employee() {
+    var isEmp = false;
+    var data: any = localStorage.getItem('data');
+    if (data) {
+      data = JSON.parse(data) as any;
+      if (data.role == 3) {
+        isEmp = true;
+      }
+    }
+    return isEmp;
+  }
 
   getToken() {
     return localStorage.getItem('token');
   }
 
-
-
   masterLogout() {
     this.routes.navigate(['/signin']);
     return localStorage.removeItem('data');
-   
-   
   }
-
 }
