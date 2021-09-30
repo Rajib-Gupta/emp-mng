@@ -1,24 +1,36 @@
-
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RepoService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-  
   public getData = (route: string) => {
     return this.http.get(
       this.createCompleteRoute(route, environment.urlAddress)
     );
   };
-  
+
   public create = (route: string, body: any) => {
+    return this.http.post(
+      this.createCompleteRoute(route, environment.urlAddress),
+      body,
+      this.generateHeaders()
+    );
+  };
+
+  public upload = (route: string, body: any) => {
+    return this.http.post(
+      this.createCompleteRoute(route, environment.urlAddress),
+      body
+    );
+  };
+
+  public addKpi = (route: string, body: any) => {
     return this.http.post(
       this.createCompleteRoute(route, environment.urlAddress),
       body,
@@ -39,25 +51,22 @@ export class RepoService {
     );
   };
 
-  
   public emailCheck = (route: string, body: any) => {
     return this.http.post(
       this.createCompleteRoute(route, environment.urlAddress),
-      body,
-
+      body
     );
   };
-  
+
   public addsuper = (route: string) => {
     return this.http.delete(
       this.createCompleteRoute(route, environment.urlAddress)
     );
   };
-  
+
   private createCompleteRoute = (route: string, envAddress: string) => {
     return `${envAddress}/${route}`;
   };
-
 
   private generateHeaders = () => {
     return {

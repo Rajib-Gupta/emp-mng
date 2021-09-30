@@ -96,9 +96,9 @@
                         <mat-error *ngIf="hasError('email', 'maxlength')"
                           >You have more than 100 characters</mat-error
                         >
-                        <mat-error *ngIf="hasError('email', 'email')"
-                          >Please input a valid email</mat-error
-                        >
+                        <mat-error *ngIf="hasError('email', 'pattern')"
+                        >Please input a valid Company email like:doe@ogmaconceptions.com</mat-error
+                      >
                       </mat-form-field>
   
                       <mat-form-field>

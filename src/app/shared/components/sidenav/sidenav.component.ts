@@ -3,12 +3,14 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatSidenav } from '@angular/material/sidenav';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { TooltipPosition } from '@angular/material/tooltip';
 import { FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-import {MediaMatcher} from '@angular/cdk/layout';
-
+import { RepoService } from 'src/app/service/repo.service';
+import { Employee } from 'src/app/model/employee';
+import { environment } from 'src/environments/environment';
+import { InteractionService } from 'src/app/service/interaction.service';
+import { skip } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidenav',
@@ -16,6 +18,21 @@ import {MediaMatcher} from '@angular/cdk/layout';
   styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent implements OnInit {
+  public focus: any;
+  employee!: Employee;
+
+  url: any;
+
+  images!: any;
+
+  _name: any;
+
+  admin_id: any;
+  admin_fname: any;
+  admin_lname: any;
+  admin_email: any;
+  admin_phone: any;
+  admin_desig: any;
 
   themeColor: 'primary' | 'accent' | 'warn' = 'primary'; // ? notice this
   isDark = false; // ? notice this
@@ -23,21 +40,29 @@ export class SidenavComponent implements OnInit {
   isShowing!: boolean;
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  constructor(private overlayContainer: OverlayContainer,private observer: BreakpointObserver,public _authService:AuthService) {}
-  
+  constructor(
+    private repoService: RepoService,
+    private overlayContainer: OverlayContainer,
+    public _authService: AuthService,
+    private interaction: InteractionService
+  ) {}
+
   ngOnInit(): void {
-    
+    this.interaction.user$.subscribe((data: any) => {
+      this.admin_id = data?.id;
+      this.admin_fname = data?.f_name;
+      this.admin_lname = data?.l_name;
+      this.admin_email = data?.email;
+      this.admin_phone = data?.phone;
+      this.admin_desig = data?.desig;
+      setTimeout(() => {
+        this.url = `${environment.baseImageUrl}/${data?.image}`;
+      }, 0);
+    });
   }
-   
-  _name = JSON.parse(localStorage.getItem('data') as string);
 
-  admin_fname = this._name?.f_name;
-  admin_lname = this._name?.l_name;
-  admin_email = this._name?.email;
-  admin_phone = this._name?.phone;
-
-  toggle(){
-    this.showFiller=true;
+  toggle() {
+    this.showFiller = true;
   }
   // ? notice below
   toggleTheme(): void {
@@ -50,22 +75,18 @@ export class SidenavComponent implements OnInit {
         .classList.remove('dark-theme');
     }
   }
+
   
 
   toggleSidenav() {
-     this.isShowing = !this.isShowing;
+    this.isShowing = !this.isShowing;
   }
-  
+
   callMethods() {
-      this.toggleSidenav();
+    this.toggleSidenav();
   }
 
-
-  
   public positionOptions: TooltipPosition[] = ['left']; // Tooltip postion
   // tslint:disable-next-line:typedef
-  public position = new FormControl(this.positionOptions[0]); 
-
-
-
+  public position = new FormControl(this.positionOptions[0]);
 }

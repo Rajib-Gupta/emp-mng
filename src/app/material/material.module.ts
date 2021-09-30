@@ -38,6 +38,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSliderModule} from'@angular/material/slider';
 import {MatDialogModule} from "@angular/material/dialog";
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 @NgModule({
   imports:[
@@ -77,7 +78,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatProgressBarModule,
     MatNativeDateModule,
     MatSliderModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableExporterModule
   
   ],
   exports: [
@@ -116,7 +118,9 @@ import {MatDialogModule} from "@angular/material/dialog";
   MatProgressBarModule,
   MatNativeDateModule,
   MatSliderModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTableExporterModule
+
 
   ],
 })

@@ -1,0 +1,47 @@
+mat-form-field{
+    width: 400px;
+    padding: 10px;
+    margin-left: 5px;
+    
+}
+mat-card-title{
+    text-align: center;
+}
+.mat-radio-button ~ .mat-radio-button{
+  margin-left: 16px;
+}
+mat-lable,mat-radio-button,mat-radio-group,mat-form-field{
+  margin:10px;
+ 
+}
+mat-dialog-content, mat-card-title, mat-card-actions {
+  text-align: center;
+  margin:10px;
+}
+mat-dialog-content{
+  height: inherit;
+}
+.login-wrapper{
+  width: 700px;
+}
+mat-card-content{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.advanced-color{
+  color: #3f51b5;
+}
+
+.beginner-color{
+  color: #f44336;
+}
+
+.container{
+  margin-top: 10px;
+}
+.card-header{
+  background: linear-gradient(to left, #ff6699 0%, #ffcc00 100%);
+  text-align: center;
+  color: white;
+}

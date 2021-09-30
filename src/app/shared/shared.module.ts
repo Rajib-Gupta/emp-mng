@@ -7,10 +7,11 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { RoutingModule } from '../routing/route/route.module'
 import { NgbTooltipModule, } from '@ng-bootstrap/ng-bootstrap';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { KpiDetailsComponent } from './components/kpi-details/kpi-details.component';
 
 @NgModule({
-  declarations: [SidenavComponent],
+  declarations: [SidenavComponent, KpiDetailsComponent],
   imports: [CommonModule, MaterialModule,RoutingModule,NgbTooltipModule,MDBBootstrapModule.forRoot()],
-  exports: [SidenavComponent], // ? added
+  exports: [SidenavComponent,KpiDetailsComponent], // ? added
 })
 export class SharedModule {}

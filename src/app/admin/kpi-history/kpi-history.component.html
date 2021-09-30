@@ -1,0 +1,146 @@
+<div class="login-wrapper" fxLayoutAlign="center center">
+  <div class="container">
+  <mat-card class="box">
+    <form
+      class="example-form"
+      [formGroup]="sessionForm"
+      autocomplete="off"
+      (ngSubmit)="sessionUpdate(sessionForm.value)"
+      fxLayout="column wrap"
+      fxLayoutGap="10px"
+    >
+      <mat-form-field class="example-full-width">
+        <mat-label>Session Year</mat-label>
+        <select matNativeControl formControlName="year">
+          <option *ngFor="let year of sessionYear" [value]="year.value">
+            {{ year.viewValue }}
+          </option>
+        </select>
+
+        <mat-error *ngIf="hasError('year', 'required')"
+          >Session Year is required</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Session</mat-label>
+        <mat-select formControlName="session">
+          <mat-option *ngFor="let s of session" [value]="s.value">
+            {{ s.viewValue }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('session', 'required')"
+          >Session is required</mat-error
+        >
+      </mat-form-field>
+
+      <button class="mat-raised-button mr-2">Submit</button>
+    </form>
+
+    <br />
+    <button mat-raised-button color="primary" (click)="exportAsExcel()">Export as Excel</button>
+
+    <mat-paginator
+      [pageSize]="20"
+      [pageSizeOptions]="[2, 4, 6, 10, 20, 50, 100, 200, 500, 1000]"
+    >
+    </mat-paginator>
+    <div class="example-container mat-elevation-z8 " #TABLE>
+    <table mat-table  #table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <ng-container matColumnDef="f_name">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element?.to_emp || 'NA' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="sup_id">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Supervisor Name
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.from_emp || 'NA' }}
+    
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="year">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Year
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element?.year || 'NA' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="session">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Session
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{element.session ==1?"Jan-April":element.session==2?"May-Aug":"Sep-Dec"}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="super_kpi">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Supervisor Given Kpi
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.sup_avg || 0 |number:"1.2-2"}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="emp_kpi">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Employee Given Kpi
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.emp_avg || 0 |number:"1.2-2"}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total_kpi">
+        <th mat-header-cell style="text-align: center" *matHeaderCellDef>
+          Total Average Kpi
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element?.total_avg || 0 |number:"1.2-2" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sup_kpi_details">
+        <th mat-header-cell  *matHeaderCellDef>
+         Supervisor Given Kpi Details
+        </th>
+        <td mat-cell  style="text-align: center" *matCellDef="let element">
+          <button
+          mat-icon-button
+          color="primary"
+          (click)=openSupKpiDialog(element.id)
+        >
+          <mat-icon class="mat-18">reorder</mat-icon>
+        </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="emp_kpi_details">
+        <th mat-header-cell  *matHeaderCellDef>
+         Employee Given Kpi Details
+        </th>
+        <td mat-cell style="text-align: center" *matCellDef="let element">
+          <button
+          mat-icon-button
+          color="primary"
+          (click)=openSupKpiDialog(element.id)
+        >
+          <mat-icon class="mat-18">reorder</mat-icon>
+        </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    </div>
+  </mat-card>
+</div>
+</div>

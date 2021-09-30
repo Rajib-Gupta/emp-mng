@@ -1,0 +1,161 @@
+mat-card-title {
+  text-align: center;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+mat-lable,
+mat-radio-button,
+mat-radio-group,
+mat-form-field {
+  margin: 10px;
+}
+mat-dialog-content,
+mat-card-title,
+mat-card-actions {
+  text-align: center;
+  margin: 10px;
+}
+
+.login-wrapper {
+  text-align: center;
+  height: 600px;
+}
+mat-card-content {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.advanced-color {
+  color: #3f51b5;
+}
+
+.beginner-color {
+  color: #f44336;
+}
+
+// table css
+
+table {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.table-container {
+  width: 100%;
+  min-width: 445px;
+  max-width: 1459px;
+  height: 550px;
+  max-height: 600px;
+  border: none;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.table {
+  width: 100%;
+  height: 500px;
+  max-height: 500px;
+  line-height: 19px;
+  font-size: 5.5px;
+  border-collapse: collapse;
+
+  td {
+    border-bottom: none;
+    padding: 30px;
+  }
+
+  th {
+    border-bottom: 1px solid #a4b8ca;
+    padding: 30px;
+  }
+}
+
+.main-content {
+  margin-left: 40px;
+  margin-right: 40px;
+  min-width: 200px;
+}
+.card-header {
+  background-color: gray;
+}
+th.mat-header-cell {
+  text-align: left;
+  max-width: 600px;
+}
+.mat-18 {
+  align-items: center;
+  display: flex;
+}
+.download {
+  margin-left: 15px;
+}
+
+.mat-column-emp_id {
+  width: 7%;
+}
+.th-center {
+  text-align: center;
+}
+
+.mat-column-Superkpidetails {
+  width: 7%;
+}
+
+.mat-column-Employeekpidetails {
+  width: 6%;
+}
+
+.card-header-danger .card-icon,
+.card-header-danger:not(.card-header-icon):not(.card-header-text),
+.card-header-danger .card-text {
+  text-align: center;
+  color: aliceblue;
+}
+
+.mat-header-cell {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mat-cell {
+  text-align: center;
+  justify-content: center;
+}
+.card-header {
+  background: linear-gradient(to left, #ff6699 0%, #ffcc00 100%);
+  text-align: center;
+  color: white;
+}
+// .example{
+//   display: flex;
+//   margin-top: 20px;
+// min-width: 900px;
+
+// }
+.content {
+  text-align: center;
+  min-width: 200px;
+  color: black;
+}
+mat-form-field {
+  width: 400px;
+  padding: 10px;
+  margin-left: 5px;
+}
+mat-chip {
+  width: 100%;
+}
+
+@media only screen and (max-height: 500px) {
+  div.limit-table-size {
+    max-height: 250px;
+    overflow: auto;
+  }
+}
+@media only screen and (min-height: 500px) and (max-height: 800px) {
+  div.limit-table-size {
+    max-height: 400px;
+    overflow: auto;
+  }
+}

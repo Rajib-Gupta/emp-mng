@@ -9,12 +9,50 @@ export interface Admin {
     sup_id: number;
     roll: number;
   }
+
+  export interface kpiHistory extends Admin{
+    session:number,
+    year:number,
+    super_kpi:number,
+    emp_kpi:number,
+    total_kpi:number,
+    to_emp?:string,
+    from_emp?:string,
+    sup_kpi_details?:{
+
+    }
+  }
   
+
+  export interface kpiDetails{
+        id?: string
+        emp_id?: string
+        supervisor_id?:string
+        givenby_id?:string
+        kpi_session?:any;
+        session?:any;
+        kpi_details?:any;
+          availability:number,
+          ontime:number,
+          punctuality:number,
+          regularity:number,
+          timetorepair:number,
+          criticalproblemsolving:9,
+          clienthandling:number,
+          innovative:number,
+          teamPlayer:number,
+          dependibility:number
+        
+       
+        kpiSessionId?: string
+
+  }
 export interface Detail {
     status: string;
     roll: number;
   }
   export interface Employee {
+    id?:string;
     emp_id: string;
     f_name: string;
     l_name: string;
@@ -26,8 +64,9 @@ export interface Detail {
     dob:Date;
     doj:Date;
     dpt:string;
-    desig:string
-  
+    desig:string;
+    image?:string;
+    supervisor_id?:string;
     details?: Detail[];
   }
   export interface EmployeeUpdate extends Employee{
@@ -42,6 +81,10 @@ export interface AuthResponce {
   token: string;
 }
 
+export interface passwordReset{
+  password:string;
+  newPassword:string
+}
 export interface EmpResponce {
   emp_email: string;
   emp_password: string;
@@ -61,4 +104,42 @@ export interface Supervisor extends Employee {
 }
 export interface Count extends Employee{
   count:number
+}
+export interface Session{
+  id?:string,
+  session:any,
+  year:number,
+  is_active?:number,
+  is_completed?:number
+
+}
+
+export interface session_details extends Session{
+  session:{
+    session:number
+  }
+}
+export interface UpdateSession{
+  is_completed:number
+}
+export interface addKpi{
+ 
+  supervisor_id?:string;
+  givenby_id:string,
+  kpiSessionId:string
+  kpi_details:{
+    availability: number,
+    ontime: number,
+    punctuality: number,
+    regularity: number,
+    timetorepair: number,
+    criticalproblemsolving: number,
+    clienthandling: number,
+    innovative: number,
+    teamPlayer: number,
+    dependibility: number,
+  }
+  
+  
+
 }

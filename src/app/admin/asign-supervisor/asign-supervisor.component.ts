@@ -59,7 +59,7 @@ export class AsignSupervisorComponent implements OnInit {
   public pushValue() {
     console.log(this.Supervisors)
     this.super.unshift({ value: '', viewValue: 'None' });
-    this.Supervisors.forEach((item) => {
+    this.Supervisors.filter((item)=>item.id!==this.description).forEach((item) => {
       this.super.push({
         viewValue: item.f_name,
         value: item.id.toString(),
