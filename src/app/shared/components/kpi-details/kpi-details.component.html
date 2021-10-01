@@ -7,7 +7,7 @@
           : employee?.kpi_session?.session?.session == 2
           ? "May-August"
           : "Sep-Dec" || "N/A"
-      }} in {{ employee?.kpi_session?.year}} </h1>
+      }} in {{ employee?.kpi_session?.year || "NA"}} </h1>
     </div>
     <br />
     <mat-dialog-content>

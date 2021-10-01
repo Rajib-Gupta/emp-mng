@@ -27,10 +27,22 @@ export class IsAdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (this._authService.admin()) {
-      return true;
+    if (this._authService.admin()  ||  this._authService.super()) {
+       
+
+      // if(this._authService.admin() ) {
+      //    this.routes.navigate(['/admin/dashboard'])
+      //     return true;
+      // } 
+      // if( this._authService.super()){
+      //      this.routes.navigate(['/supervisor/sup-profile'])
+      //       return true;
+      // }
+       return true;
+    } else {
+          this.routes.navigate(['/signin'])
+        return false;
     }
-    this.routes.navigate(['/signin'])
-    return false;
+
   }
 }

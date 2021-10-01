@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { skip } from 'rxjs/operators';
-import { Employee, Session } from 'src/app/model/employee';
+import { Employee, kpiDetails, Session } from 'src/app/model/employee';
 import { InteractionService } from 'src/app/service/interaction.service';
 
 import { RepoService } from 'src/app/service/repo.service';
@@ -20,7 +19,7 @@ import { PasswordResetComponent } from '../password-reset/password-reset.compone
 export class SupProfileComponent implements OnInit {
   session!: Session[];
   employee!: Employee;
-
+  public employeeKpiDetails: kpiDetails | undefined;
   url: any;
   images!: any;
   showKPIBtn: number | boolean | undefined;
@@ -43,8 +42,9 @@ export class SupProfileComponent implements OnInit {
         this.url = `${environment.baseImageUrl}/${data?.image}`;
       }, 0);
 
-     // console.log('url', this.url);
+      // console.log('url', this.url);
     });
+    this.isSubmitted();
   }
 
   _name = JSON.parse(localStorage.getItem('data') as string);
@@ -61,12 +61,14 @@ export class SupProfileComponent implements OnInit {
     const sessionByUrl: string = `getkpi-super/`;
     this.repoService.getData(sessionByUrl).subscribe(
       (res: any) => {
-         console.log(res.data);
+        console.log(res.data);
         this.isshowing = true;
         this.session = res.data['rows'] as Session[];
-        if (this.session) {
-          setTimeout(()=>{
-            this.hotTost.warning(`Please give kpi to yourself and your employee also,for year: ${
+
+        if (this.session.length) {
+          setTimeout(() => {
+            this.hotTost
+              .warning(`Please give kpi to yourself and your employee also,for year: ${
               this.session?.[0]?.year
             } , 
             session:${
@@ -78,8 +80,19 @@ export class SupProfileComponent implements OnInit {
             },
                  If you have already given then please ignore this.
             `);
-          },2000)
-     
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            this.hotTost.error(
+              `Session ${
+                this.session?.[0]?.session?.session == 1
+                  ? 'Jan-April'
+                  : this.session?.[0]?.session?.session == 2
+                  ? 'May-August'
+                  : 'Sep-Dec'
+              } is closed, You can check your given Kpi Details!`
+            );
+          }, 3000);
         }
 
         //   console.log(this.session);
@@ -97,6 +110,8 @@ export class SupProfileComponent implements OnInit {
   };
 
   isshowing = false;
+
+  showComment: number | boolean | undefined;
 
   openKpiDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -117,7 +132,7 @@ export class SupProfileComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       emp_id: id,
-      givenby_id:id,
+      givenby_id: id,
       sessionId: this.session[0]?.id,
       title: 'Kpi Details',
     };
@@ -162,19 +177,10 @@ export class SupProfileComponent implements OnInit {
     }
   }
 
-  private getEmployeeById = () => {
-    const employeeId: string = this.super_id;
-    const employeeByIdUrl: string = `get-employee/${employeeId}`;
-    this.repoService.getData(employeeByIdUrl).subscribe(
-      (res: any) => {
-        console.log(res.data);
-        this.employee = res.data as Employee;
-        this.url = `${environment.baseImageUrl}/${this.employee?.image}`;
-      },
-      (error) => {
-        //this.errorHandler.handleError(error);
-        //this.errorMessage = this.errorHandler.errorMessage;
-      }
-    );
-  };
+  isSubmitted() {
+    if (this.session?.[0]?.employee_kpis?.[0]?.givenby_id == this.super_id) {
+      return true;
+    }
+    return false;
+  }
 }

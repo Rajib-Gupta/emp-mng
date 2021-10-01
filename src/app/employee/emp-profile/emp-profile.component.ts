@@ -56,6 +56,12 @@ export class EmpProfileComponent implements OnInit {
   employee_supervisor=this._name?.supervisor_id
 
 
+  isSubmitted(){
+    if(this.session?.[0]?.employee_kpis?.[0]?.givenby_id==this.employee_id){
+      return true
+    }
+    return false
+  }
 
   private getActiveSession = () => {
     const sessionByUrl: string = `getkpi-super/`;

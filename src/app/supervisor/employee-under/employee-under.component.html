@@ -22,7 +22,7 @@
             <div class="card-hover-show">
                 <a class="btn btn-xs fs-10 btn-bold btn-info" (click)="redirectToEmployeeKpiDetails(employee.id)">Details</a>
                 <button class="btn btn-xs fs-10 btn-bold btn-primary hideKpiBtn"
-                [class.showKpiBtn]="showKPIBtn"[disabled]="isActive()" (click)="openUpdateDialog(employee.id)">Add Kpi</button>
+                [class.showKpiBtn]="showKPIBtn" [disabled]="isActive()" [disabled]="isSubmitted()" (click)="openUpdateDialog(employee.id)">Add Kpi</button>
                 <button class="btn btn-xs fs-10 btn-bold btn-info"  (click)="openKpiDetailsDialog(employee.id)">Kpi Details</button>
               
             </div>
