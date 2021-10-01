@@ -26,6 +26,7 @@ export class IsSuperGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+      console.log('this._authService.super()',this._authService.super())
     if (this._authService.super()) {
       return true;
     }

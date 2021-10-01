@@ -52,6 +52,14 @@ export class EmployeeUnderComponent implements OnInit {
     });
   };
 
+  
+  isSubmitted(){
+    if(this.session?.[0]?.employee_kpis?.[0]?.givenby_id==this.super_id){
+      return true
+    }
+    return false
+  }
+
   private getActiveSession = () => {
     const sessionByUrl: string = `getkpi-super/`;
     this.repoService.getData(sessionByUrl).subscribe(

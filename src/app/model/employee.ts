@@ -111,7 +111,8 @@ export interface Session{
   session:any,
   year:number,
   is_active?:number,
-  is_completed?:number
+  is_completed?:number,
+  employee_kpis?:any
 
 }
 

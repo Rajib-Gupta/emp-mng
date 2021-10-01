@@ -2,7 +2,7 @@
     <div class="main-body">
         
           <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-5 mb-3">
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
@@ -18,8 +18,8 @@
                     </div>
                     <div>
                       <button class="btn btn-info " class="btn btn-info hideKpiBtn"
-                      [class.showKpiBtn]="showKPIBtn" (click)="openKpiDialog()" >Give Kpi to Yourself</button>
-                      <button class="btn btn-primary" (click)="ownKpiDetailsDialog(employee.id)"> Kpi Details</button>
+                      [class.showKpiBtn]="showKPIBtn"  [disabled]="isSubmitted()" (click)="openKpiDialog()" >Give Kpi to Yourself</button>
+                      <button class="btn btn-primary"   [disabled]="isSubmitted()" (click)="ownKpiDetailsDialog(employee.id)">Your Kpi Details</button>
                     </div>
                    
 
@@ -27,7 +27,7 @@
                     <div>
                     <button class="btn btn-info " class="btn btn-info hideKpiBtn"
                     [class.showKpiBtn]="showKPIBtn" (click)="openSupKpiDialog()" > Kpi for Your Supervisor</button>
-                    <button class="btn btn-primary" (click)="supKpiDetailsDialog(employee.supervisor_id)"> Kpi Details</button>
+                    <button class="btn btn-primary" (click)="supKpiDetailsDialog(employee.supervisor_id)">Supervisor Kpi Details</button>
                   </div>
                   </div>
                 </div>
@@ -57,7 +57,7 @@
                 </ul>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
               <div class="card mb-3">
                 <div class="card-body">
                   <div class="row">

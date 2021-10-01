@@ -15,10 +15,12 @@ const routes: Routes = [
     canActivate: [AuthGuard,IsAdminGuard],
     component: DashboardComponent,
   },
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  // Eto gulo index router mane hoina
+  // ekta single index route thkabe je role er descide korbe route access kora jabe kina. maintain korte fete jabe
+  // { path: '', redirectTo: '/', pathMatch: 'full' },
 
-  { path: '', canActivate: [AuthGuard,IsSuperGuard], component: SupProfileComponent },
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+   { path: '', canActivate: [AuthGuard,IsSuperGuard], component: SupProfileComponent },
+   { path: '', redirectTo: '/', pathMatch: 'full' },
 
   { path: 'signin',canActivate:[SignInGuard], component: SignInComponent },
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
@@ -32,7 +34,6 @@ const routes: Routes = [
 
   {
     path: 'supervisor',
-    canActivate: [AuthGuard,IsSuperGuard],
     loadChildren: () =>
       import('../../supervisor/supervisor.module').then(
         (m) => m.SupervisorModule

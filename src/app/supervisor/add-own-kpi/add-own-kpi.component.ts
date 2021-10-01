@@ -6,6 +6,8 @@ import { addKpi } from 'src/app/model/employee';
 import { RepoService } from 'src/app/service/repo.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Location } from '@angular/common';
+import { HotToastService } from '@ngneat/hot-toast';
+import { InteractionService } from 'src/app/service/interaction.service';
 
 @Component({
   selector: 'app-add-own-kpi',
@@ -19,10 +21,12 @@ export class AddOwnKpiComponent implements OnInit {
   session_id:string
   constructor(  private location: Location,
     private router: Router,
+    private hotTost: HotToastService,
     public dialogRef: MatDialogRef<AddOwnKpiComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   
     private repository: RepoService,
+ 
     private toastr:ToastrService) {
       this.emp_id = data.id;
       this.session_id=data.sessionId;
@@ -86,6 +90,7 @@ export class AddOwnKpiComponent implements OnInit {
       this.isSubmitted=true;
       this.executeKpiAdd(this.sessionForm.value);
     }
+    this.dialogRef.close();
    
   };
   private executeKpiAdd = (sessionFormValue: {
@@ -123,13 +128,10 @@ export class AddOwnKpiComponent implements OnInit {
     console.log(kpi)
     let apiUrl = `add-kpi/${this.emp_id}`;
     this.repository.addKpi(apiUrl, kpi).subscribe(
-      (res) => {
+      (res:any) => {
         console.log(res);
         this.isSubmitted=false;
-        this.toastr.success(
-          'You have successfully Added Kpi!',
-         
-        );
+        this.hotTost.success("Successfully Added.");
       },
       (error) => {
         this.isSubmitted=false;
