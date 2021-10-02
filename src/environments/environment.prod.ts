@@ -1,6 +1,6 @@
 
-const baseUrl = 'http://localhost:9002';
-const base=`http://localhost:9002`;
+const baseUrl = 'http://projectsshowcase.com:9002';
+const base = baseUrl;
 export const environment = {
   production: true,
   urlAddress: baseUrl,
