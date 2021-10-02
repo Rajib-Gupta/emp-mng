@@ -58,9 +58,12 @@ export class ProfileComponent implements OnInit {
     const employeeByIdUrl: string = `get-employee/${employeeId}`;
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res: any) => {
-        console.log(res.data);
+       // console.log(res.data);
         this.employee = res.data as Employee;
-        this.url = `${environment.baseImageUrl}/${this.employee?.image}`;
+        if(this.employee?.image) {
+
+          this.url = `${environment.baseImageUrl}/${this.employee?.image}`;
+        }
        
         this.interaction.setUser(res.data);
       },

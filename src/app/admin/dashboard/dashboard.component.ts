@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
 
   public getAllKpiSession = () => {
     this.repoService.getData('kpi-details/').subscribe((res: any) => {
-      // console.warn(res);
+      console.warn(res);
       (this.dataSource.data = res['data'].rows as Session[]),
         (err: { status: string }) => {
           if (err instanceof HttpErrorResponse) {
@@ -138,7 +138,6 @@ export class DashboardComponent implements OnInit {
     //   console.log(`Closing modal`, modalCloseModal);
     //   this.getAllKpiSession();
     // });
-
     const dialogRef = this.dialog.open(KpiSessionComponent, dialogConfig);
   }
 

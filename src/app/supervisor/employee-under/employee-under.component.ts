@@ -11,6 +11,7 @@ import { RepoService } from 'src/app/service/repo.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddKpiComponent } from '../add-kpi/add-kpi.component';
 import { KpiDetailsComponent } from 'src/app/shared/components/kpi-details/kpi-details.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-employee-under',
@@ -39,17 +40,39 @@ export class EmployeeUnderComponent implements OnInit {
 
   public getAllEmployees = () => {
     const employeeByIdUrl: string = `emp-under-super/${this.super_id}`;
-    this.repoService.getData(employeeByIdUrl).subscribe((res: any) => {
-      (this.employees = res['data'].rows as EmployeeUpdate[]),
-        (err: { status: string }) => {
-          if (err instanceof HttpErrorResponse) {
-            if (err.status == '401') {
-              this.router.navigate(['/signin']);
-            }
+    this.repoService.getData(employeeByIdUrl).subscribe({
+      next: (res:any) => {
+        const employees = res['data'].rows as EmployeeUpdate[]
+        this.employees = employees.map(emp => {
+          if(emp.image) {
+            emp.image = `${environment.baseImageUrl}/${emp?.image}`
+          } else {
+            emp.image =  'https://bootdey.com/img/Content/avatar/avatar1.png'
           }
-        };
-      console.log(this.employees);
-    });
+          return emp
+        })
+      },
+      error:  (err: { status: string }) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status == '401') {
+            this.router.navigate(['/signin']);
+          }
+        }
+      }
+    })
+    // this.repoService.getData(employeeByIdUrl).subscribe((res: any) => {
+    //   (this.employees = res['data'].rows as EmployeeUpdate[]),
+     
+    //   console.log(this.employees);
+    // },
+    //   (err: { status: string }) => {
+    //     if (err instanceof HttpErrorResponse) {
+    //       if (err.status == '401') {
+    //         this.router.navigate(['/signin']);
+    //       }
+    //     }
+    //   });
+    
   };
 
   
@@ -73,6 +96,7 @@ export class EmployeeUnderComponent implements OnInit {
           !this.session[0]?.is_completed && this.session[0]?.is_active
             ? true
             : false;
+            
       },
       (error) => {
         //this.errorHandler.handleError(error);

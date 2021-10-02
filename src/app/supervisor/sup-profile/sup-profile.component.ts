@@ -37,11 +37,16 @@ export class SupProfileComponent implements OnInit {
     this.interaction.user$.subscribe((data: any) => {
       console.log('data', data);
       this.employee = data as Employee;
-      console.log(data);
-      setTimeout(() => {
-        this.url = `${environment.baseImageUrl}/${data?.image}`;
-      }, 0);
+    //  console.log(data);
+      if(this.employee?.image) {
 
+        setTimeout(() => {
+          this.url = `${environment.baseImageUrl}/${data?.image}`;
+        }, 0);
+  
+      }
+     
+     
       // console.log('url', this.url);
     });
     this.isSubmitted();

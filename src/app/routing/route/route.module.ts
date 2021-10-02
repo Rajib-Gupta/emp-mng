@@ -8,19 +8,18 @@ import { SupProfileComponent } from 'src/app/supervisor/sup-profile/sup-profile.
 import { IsAdminGuard } from 'src/app/guard/is-admin.guard';
 import { IsSuperGuard } from 'src/app/guard/is-super.guard';
 import { SignInGuard } from 'src/app/guard/sign-in.guard';
+import { HomeComponent } from 'src/app/home/home/home.component';
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard,IsAdminGuard],
-    component: DashboardComponent,
+  
+    component: HomeComponent,
   },
-  // Eto gulo index router mane hoina
-  // ekta single index route thkabe je role er descide korbe route access kora jabe kina. maintain korte fete jabe
-  // { path: '', redirectTo: '/', pathMatch: 'full' },
+  
 
-   { path: '', canActivate: [AuthGuard,IsSuperGuard], component: SupProfileComponent },
-   { path: '', redirectTo: '/', pathMatch: 'full' },
+  //  { path: '', canActivate: [AuthGuard,IsSuperGuard], component: SupProfileComponent },
+  //  { path: '', redirectTo: '/', pathMatch: 'full' },
 
   { path: 'signin',canActivate:[SignInGuard], component: SignInComponent },
   { path: '', redirectTo: '/signin', pathMatch: 'full' },
@@ -34,6 +33,7 @@ const routes: Routes = [
 
   {
     path: 'supervisor',
+    canActivate: [AuthGuard,IsSuperGuard],
     loadChildren: () =>
       import('../../supervisor/supervisor.module').then(
         (m) => m.SupervisorModule

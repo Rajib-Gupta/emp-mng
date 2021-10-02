@@ -51,6 +51,7 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     if (this.Form.valid) {
+      this.interaction.setUser(null)
       const email = this.Form.value.email;
       const password = this.Form.value.password;
       // const role = this.Form.value.role;
@@ -60,7 +61,8 @@ export class SignInComponent implements OnInit {
             localStorage.clear();
             console.log(res);
             if (res.data) {
-              this.interaction.setUser(res.data)
+              // this.interaction.setUser(res.data)
+              this.interaction.refreshUserData(true)
               if (res.data.role === '1') {
                 // if (role == 1) {
                 localStorage.setItem('data', JSON.stringify(res.data));
@@ -69,6 +71,8 @@ export class SignInComponent implements OnInit {
                   Welcome ${res.data.f_name} To Admin Dashboard`
                 );
                 localStorage.setItem('token', res.token);
+                // this.interaction.setUser(res.data)
+                this.interaction.refreshUserData(true)
                 this.routes.navigate(['admin/dashboard']);
               } else if (res.data.role === '2') {
                 localStorage.setItem('data', JSON.stringify(res.data));
@@ -77,6 +81,8 @@ export class SignInComponent implements OnInit {
                   Welcome ${res.data.f_name} To Admin Dashboard`
                 );
                 localStorage.setItem('token', res.token);
+                // this.interaction.setUser(res.data)
+                this.interaction.refreshUserData(true)
                 this.routes.navigate(['/supervisor/sup-profile']);
               } 
               else if(res.data.role==='3'){
@@ -86,6 +92,8 @@ export class SignInComponent implements OnInit {
                   Welcome ${res.data.f_name} To Admin Dashboard`
                 );
                 localStorage.setItem('token', res.token);
+                // this.interaction.setUser(res.data)
+                this.interaction.refreshUserData(true)
                 this.routes.navigate(['employee/emp-profile']);
               }
                 else {
