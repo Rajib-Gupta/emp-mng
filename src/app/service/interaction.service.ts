@@ -12,7 +12,7 @@ export class InteractionService {
   private user= new BehaviorSubject(null)
   public user$=this.user.asObservable()
 
-  private refreshUser = new BehaviorSubject(null);
+  private refreshUser = new BehaviorSubject<boolean|null>(null);
   public refreshUser$ = this.refreshUser.asObservable()
 
 
@@ -21,6 +21,6 @@ export class InteractionService {
   }
 
   refreshUserData(status:boolean){
-    
+    this.refreshUser.next(status)
   }
 }

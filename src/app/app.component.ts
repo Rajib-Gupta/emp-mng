@@ -25,17 +25,19 @@ export class AppComponent implements OnInit {
 
   handleUserRefresh() {
     this.interaction.refreshUser$.subscribe(shouldRefresh => {
+      console.log(`[shouldRefresh] -> `,shouldRefresh)
       if(shouldRefresh) this.fetchEmployeeById()
     })
   }
   
   fetchEmployeeById() {
     const employee = JSON.parse(localStorage.getItem('data') as string);
-
+console.log(`[employee] -> `,employee)
     if (employee) {
       const employeeByIdUrl: string = `get-employee/${employee.id}`;
       this.repoService.getData(employeeByIdUrl).subscribe(
         (res: any) => {
+          console.log("appcomponet->",res.data)
           this.interaction.setUser(res.data);
         },
         (error) => {

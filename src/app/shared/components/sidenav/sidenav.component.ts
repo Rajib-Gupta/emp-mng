@@ -49,15 +49,24 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     this.interaction.user$.subscribe((data: any) => {
+      if(!data) {
+        this.url = null
+        return
+      };
       this.admin_id = data?.id;
       this.admin_fname = data?.f_name;
       this.admin_lname = data?.l_name;
       this.admin_email = data?.email;
       this.admin_phone = data?.phone;
       this.admin_desig = data?.desig;
-      setTimeout(() => {
-        this.url = `${environment.baseImageUrl}/${data?.image}`;
-      }, 0);
+      console.log("sidenav->data",data)
+      if(data?.image) {
+
+       
+         setTimeout(() =>  this.url = `${environment.baseImageUrl}/${data?.image}`,0);
+    
+  
+      }
     });
   }
 

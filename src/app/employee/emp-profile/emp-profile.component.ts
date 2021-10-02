@@ -36,9 +36,13 @@ export class EmpProfileComponent implements OnInit {
       console.log('data', data);
       this.employee = data as Employee;
       console.log(data);
-      setTimeout(() => {
-        this.url = `${environment.baseImageUrl}/${data?.image}`;
-      }, 0);
+      if(this.employee?.image) {
+
+        setTimeout(() => {
+          this.url = `${environment.baseImageUrl}/${data?.image}`;
+        }, 0);
+  
+      }
 
       console.log('url', this.url);
     });
