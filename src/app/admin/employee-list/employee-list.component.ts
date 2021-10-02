@@ -97,7 +97,6 @@ export class EmployeeListComponent implements OnInit {
   this.dialog.open(AsignSupervisorComponent, dialogConfig);
 
   
-  const dialogRef = this.dialog.open(AsignSupervisorComponent, dialogConfig);
 
   }
     
