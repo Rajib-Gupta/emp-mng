@@ -33,7 +33,11 @@ export class SupProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getActiveSession();
+    this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
+      console.log(`Closing modal`, modalCloseModal);
+      this.getActiveSession();
+    });
+   // this.getActiveSession();
     this.interaction.user$.subscribe((data: any) => {
       console.log('data', data);
       this.employee = data as Employee;
@@ -70,35 +74,35 @@ export class SupProfileComponent implements OnInit {
         this.isshowing = true;
         this.session = res.data['rows'] as Session[];
 
-        if (this.session.length) {
-          setTimeout(() => {
-            this.hotTost
-              .warning(`Please give kpi to yourself and your employee also,for year: ${
-              this.session?.[0]?.year
-            } , 
-            session:${
-              this.session?.[0]?.session?.session == 1
-                ? 'Jan-April'
-                : this.session?.[0]?.session?.session == 2
-                ? 'May-August'
-                : 'Sep-Dec'
-            },
-                 If you have already given then please ignore this.
-            `);
-          }, 2000);
-        } else {
-          setTimeout(() => {
-            this.hotTost.error(
-              `Session ${
-                this.session?.[0]?.session?.session == 1
-                  ? 'Jan-April'
-                  : this.session?.[0]?.session?.session == 2
-                  ? 'May-August'
-                  : 'Sep-Dec'
-              } is closed, You can check your given Kpi Details!`
-            );
-          }, 3000);
-        }
+        // if (this.session.length) {
+        //   setTimeout(() => {
+        //     this.hotTost
+        //       .warning(`Please give kpi to yourself and your employee also,for year: ${
+        //       this.session?.[0]?.year
+        //     } , 
+        //     session:${
+        //       this.session?.[0]?.session?.session == 1
+        //         ? 'Jan-April'
+        //         : this.session?.[0]?.session?.session == 2
+        //         ? 'May-August'
+        //         : 'Sep-Dec'
+        //     },
+        //          If you have already given then please ignore this.
+        //     `);
+        //   }, 2000);
+        // } else {
+        //   setTimeout(() => {
+        //     this.hotTost.error(
+        //       `Session ${
+        //         this.session?.[0]?.session?.session == 1
+        //           ? 'Jan-April'
+        //           : this.session?.[0]?.session?.session == 2
+        //           ? 'May-August'
+        //           : 'Sep-Dec'
+        //       } is closed, You can check your given Kpi Details!`
+        //     );
+        //   }, 3000);
+        // }
 
         //   console.log(this.session);
         this.showKPIBtn =
@@ -127,20 +131,22 @@ export class SupProfileComponent implements OnInit {
       sessionId: this.session[0]?.id,
       title: 'Add Kpi',
     };
+   
 
     this.dialog.open(AddOwnKpiComponent, dialogConfig);
   }
 
-  openKpiDetailsDialog(id: any) {
+  openKpiDetailsDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
-      emp_id: id,
-      givenby_id: id,
+      emp_id: this.super_id,
+      givenby_id: this.super_id,
       sessionId: this.session[0]?.id,
       title: 'Kpi Details',
     };
+
 
     this.dialog.open(KpiDetailsComponent, dialogConfig);
   }
@@ -170,20 +176,31 @@ export class SupProfileComponent implements OnInit {
   onSelectFile(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.images = file;
-      const formData = new FormData();
-      formData.append('file', this.images);
-      let apiUrl = `upload-image/${this.super_id}`;
-      this.repoService.upload(apiUrl, formData).subscribe((res) => {
-        // this.getEmployeeById();
-        this.interaction.refreshUserData(true);
-        // console.log(res);
-      });
+
+      const ext = file.type.split('/')[1];
+      if (ext.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|JFIF)/gi)) {
+        this.images = file;
+        const formData = new FormData();
+        formData.append('file', this.images);
+        let apiUrl = `upload-image/${this.super_id}`;
+        this.repoService.upload(apiUrl, formData).subscribe((res) => {
+         
+          // console.log(res);
+        }),
+          (error: any) => {
+            console.log(error);
+            this.hotTost.error(error.message);
+          };
+      } else {
+        this.hotTost.warning('Please select a valid  image file');
+      }
     }
   }
 
+
   isSubmitted() {
     if (this.session?.[0]?.employee_kpis?.[0]?.givenby_id == this.super_id) {
+     
       return true;
     }
     return false;

@@ -91,11 +91,13 @@ export class KpiSessionComponent implements OnInit {
     let apiUrl = 'add-session/';
     this.repoService.create(apiUrl, employee).subscribe(
       (res:any) => {
-        if (res) console.log(res);
-        this.hotTost.success(res.message);
+        if (res){
+          //console.log(res);
+          this.hotTost.success(res.message);
+        }
       },
       (error:any) => {
-        this.hotTost.error(error.message);
+        this.hotTost.warning(error.message);
       }
     );
   };

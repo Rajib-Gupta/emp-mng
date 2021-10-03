@@ -41,7 +41,7 @@ export class KpiDetailsComponent implements OnInit {
         this.hotTost.success(res.message);
       },
       (error) => {
-        this.hotTost.error('Invalid employee!');
+        this.hotTost.error(error.error.message);
       }
     );
   };

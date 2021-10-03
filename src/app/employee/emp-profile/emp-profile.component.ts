@@ -31,7 +31,11 @@ export class EmpProfileComponent implements OnInit {
     private hotTost: HotToastService) { }
 
   ngOnInit(): void {
-    this.getActiveSession()
+  //  this.getActiveSession()
+    this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
+      console.log(`Closing modal`, modalCloseModal);
+      this.getActiveSession();
+    });
     this.interaction.user$.subscribe((data: any) => {
       console.log('data', data);
       this.employee = data as Employee;
@@ -175,21 +179,30 @@ export class EmpProfileComponent implements OnInit {
   }
 
 
-  
-  onSelectFile(event: any){
-    if(event.target.files.length>0){
-      const file=event.target.files[0]
-      this.images=file;
-      const formData= new FormData();
-      formData.append('file',this.images);
-      let apiUrl = `upload-image/${this.employee_id}`
-      this.repoService.upload(apiUrl,formData).subscribe((res) => {
-        this.interaction.refreshUserData(true);
-       // console.log(res);
-     })
-    }
+  onSelectFile(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
 
+      const ext = file.type.split('/')[1];
+      if (ext.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|JFIF)/gi)) {
+        this.images = file;
+        const formData = new FormData();
+        formData.append('file', this.images);
+        let apiUrl = `upload-image/${this.employee_id}`;
+        this.repoService.upload(apiUrl, formData).subscribe((res) => {
+          this.getEmployeeById();
+          // console.log(res);
+        }),
+          (error: any) => {
+            console.log(error);
+            this.hotTost.error(error.message);
+          };
+      } else {
+        this.hotTost.warning('Please select a valid  image file');
+      }
+    }
   }
+
   isshowing = false;
     
 private getEmployeeById = () => {

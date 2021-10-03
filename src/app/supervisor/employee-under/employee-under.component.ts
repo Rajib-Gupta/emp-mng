@@ -32,6 +32,10 @@ export class EmployeeUnderComponent implements OnInit {
   ngOnInit(): void {
     this.getAllEmployees();
     this.getActiveSession();
+    this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
+      console.log(`Closing modal`, modalCloseModal);
+      this.getActiveSession();
+    });
   }
 
   _name = JSON.parse(localStorage.getItem('data') as string);
@@ -51,6 +55,7 @@ export class EmployeeUnderComponent implements OnInit {
           }
           return emp
         })
+       
       },
       error:  (err: { status: string }) => {
         if (err instanceof HttpErrorResponse) {
@@ -77,10 +82,13 @@ export class EmployeeUnderComponent implements OnInit {
 
   
   isSubmitted(){
-    if(this.session?.[0]?.employee_kpis?.[0]?.givenby_id==this.super_id){
-      return true
-    }
-    return false
+    this.employees.forEach((element:any) => {
+      if(this.session?.[0]?.employee_kpis?.[0]?.givenby_id===this.super_id && this.session?.[0]?.employee_kpis?.[0]?.emp_id===this.employees[element]?.id){
+          return true
+      }
+     return false
+    })
+   
   }
 
   private getActiveSession = () => {

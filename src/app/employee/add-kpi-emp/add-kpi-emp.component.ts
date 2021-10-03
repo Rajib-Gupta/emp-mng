@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { addKpi } from 'src/app/model/employee';
 import { RepoService } from 'src/app/service/repo.service';
 import { Location } from '@angular/common';
+import { HotToastService } from '@ngneat/hot-toast';
 @Component({
   selector: 'app-add-kpi-emp',
   templateUrl: './add-kpi-emp.component.html',
@@ -17,6 +18,7 @@ export class AddKpiEmpComponent implements OnInit {
   session_id:string
   constructor(   private location: Location,
     private router: Router,
+    private hotTost: HotToastService,
     public dialogRef: MatDialogRef<AddKpiEmpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   
@@ -83,7 +85,7 @@ export class AddKpiEmpComponent implements OnInit {
     if (this.sessionForm.valid) {
       this.executeKpiAdd(this.sessionForm.value);
     }
-  
+    this.dialogRef.close();
   };
   private executeKpiAdd = (sessionFormValue: {
     availability: number;
@@ -123,12 +125,10 @@ export class AddKpiEmpComponent implements OnInit {
     this.repository.addKpi(apiUrl, kpi).subscribe(
       (res) => {
        // console.log(res);
-        this.router.navigate(['/employee/emp-profile'])
-        this.toastr.success(
-          'You have successfully Added Kpi!')
+       this.hotTost.success("Successfully Added.");
       },
       (error) => {
-        this.toastr.error("Please check again!",error.message)
+        this.hotTost.error(error.error.message)
       
       }
     );

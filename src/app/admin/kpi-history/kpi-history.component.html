@@ -38,7 +38,7 @@
     </form>
 
     <br />
-    <button mat-raised-button color="primary" (click)="exportAsExcel()">Export as Excel</button>
+    <button mat-raised-button color="primary" [disabled]="showbutton()"   (click)="exportAsExcel()">Export as Excel</button>
 
     <mat-paginator
       [pageSize]="20"
@@ -115,7 +115,7 @@
           <button
           mat-icon-button
           color="primary"
-          (click)=openSupKpiDialog(element.id)
+          (click)=openSupKpiDialog(element.supervisor_id)
         >
           <mat-icon class="mat-18">reorder</mat-icon>
         </button>
@@ -130,7 +130,7 @@
           <button
           mat-icon-button
           color="primary"
-          (click)=openSupKpiDialog(element.id)
+          (click)=openEmpKpiDialog(element.emp_id)
         >
           <mat-icon class="mat-18">reorder</mat-icon>
         </button>

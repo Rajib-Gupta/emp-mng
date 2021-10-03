@@ -22,7 +22,7 @@ import { GetDetailsEmpComponent } from './get-details-emp/get-details-emp.compon
 import { MatSliderModule } from '@angular/material/slider';
 import { KpiHistoryComponent } from './kpi-history/kpi-history.component';
 import { ResetPasswordAdminComponent } from './reset-password-admin/reset-password-admin.component';
-import { KpiDetailsComponent } from './kpi-details/kpi-details.component';
+import { KpiDetailsHistoryComponent } from './kpi-details/kpi-details.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { KpiDetailsComponent } from './kpi-details/kpi-details.component';
     GetDetailsEmpComponent,
     KpiHistoryComponent,
     ResetPasswordAdminComponent,
-    KpiDetailsComponent
+    KpiDetailsHistoryComponent
   ],
   imports: [
     CommonModule,

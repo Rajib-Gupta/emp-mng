@@ -30,7 +30,8 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.Form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email,
+        Validators.pattern('[a-zA-Z0-9._]+(@ogmaconceptions.com)$'),]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -39,6 +40,9 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return  this.Form.controls[controlName].hasError(errorName);
+  };
   
   handlrmsg() {
     if (this.winMassage) {
@@ -97,7 +101,7 @@ export class SignInComponent implements OnInit {
                 this.routes.navigate(['employee/emp-profile']);
               }
                 else {
-                  this.hotTost.error('Please cheack email and password!');
+                  this.hotTost.error(res.data.message);
               }
             } else {
               this.hotTost.error('Please cheack email and password!');
