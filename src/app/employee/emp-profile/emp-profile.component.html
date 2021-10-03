@@ -19,14 +19,14 @@
                     <div>
                       <button class="btn btn-info " class="btn btn-info hideKpiBtn"
                       [class.showKpiBtn]="showKPIBtn"  [disabled]="isSubmitted()" (click)="openKpiDialog()" >Give Kpi to Yourself</button>
-                      <button class="btn btn-primary"   [disabled]="isSubmitted()" (click)="ownKpiDetailsDialog(employee.id)">Your Kpi Details</button>
+                      <button class="btn btn-primary"  (click)="ownKpiDetailsDialog(employee.id)">Your Kpi Details</button>
                     </div>
                    
 
                     <br>
                     <div>
                     <button class="btn btn-info " class="btn btn-info hideKpiBtn"
-                    [class.showKpiBtn]="showKPIBtn" (click)="openSupKpiDialog()" > Kpi for Your Supervisor</button>
+                    [class.showKpiBtn]="showKPIBtn" [disabled]="isSubmitted()" (click)="openSupKpiDialog()" > Kpi for Your Supervisor</button>
                     <button class="btn btn-primary" (click)="supKpiDetailsDialog(employee.supervisor_id)">Supervisor Kpi Details</button>
                   </div>
                   </div>

@@ -10,11 +10,11 @@ import { RepoService } from 'src/app/service/repo.service';
   templateUrl: './kpi-details.component.html',
   styleUrls: ['./kpi-details.component.scss'],
 })
-export class KpiDetailsComponent implements OnInit {
+export class KpiDetailsHistoryComponent implements OnInit {
   public employee: kpiDetails | undefined;
   kpi_details_id: any;
   constructor(
-    public dialogRef: MatDialogRef<KpiDetailsComponent>,
+    public dialogRef: MatDialogRef<KpiDetailsHistoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private repoService: RepoService,
     private hotTost: HotToastService,

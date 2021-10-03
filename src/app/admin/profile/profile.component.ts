@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngneat/hot-toast';
 import { Employee } from 'src/app/model/employee';
 import { InteractionService } from 'src/app/service/interaction.service';
 import { RepoService } from 'src/app/service/repo.service';
@@ -23,7 +24,8 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private interaction: InteractionService,
     private activeRoute: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private hotTost: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -42,14 +44,24 @@ export class ProfileComponent implements OnInit {
   onSelectFile(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.images = file;
-      const formData = new FormData();
-      formData.append('file', this.images);
-      let apiUrl = `upload-image/${this.admin_id}`;
-      this.repoService.upload(apiUrl, formData).subscribe((res) => {
-        this.getEmployeeById();
-        // console.log(res);
-      });
+
+      const ext = file.type.split('/')[1];
+      if (ext.match(/(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|JFIF)/gi)) {
+        this.images = file;
+        const formData = new FormData();
+        formData.append('file', this.images);
+        let apiUrl = `upload-image/${this.admin_id}`;
+        this.repoService.upload(apiUrl, formData).subscribe((res) => {
+          this.getEmployeeById();
+          // console.log(res);
+        }),
+          (error: any) => {
+            console.log(error);
+            this.hotTost.error(error.message);
+          };
+      } else {
+        this.hotTost.warning('Please select a valid  image file');
+      }
     }
   }
 
@@ -58,13 +70,12 @@ export class ProfileComponent implements OnInit {
     const employeeByIdUrl: string = `get-employee/${employeeId}`;
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res: any) => {
-       // console.log(res.data);
+        // console.log(res.data);
         this.employee = res.data as Employee;
-        if(this.employee?.image) {
-
+        if (this.employee?.image) {
           this.url = `${environment.baseImageUrl}/${this.employee?.image}`;
         }
-       
+
         this.interaction.setUser(res.data);
       },
       (error) => {

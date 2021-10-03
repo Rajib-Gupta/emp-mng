@@ -21,7 +21,9 @@ export interface Admin {
     to_emp?:string,
     from_emp?:string,
     sup_kpi_details?:any,
-    emp_kpi_details?:any
+    emp_kpi_details?:any,
+    supervisor_id?:any,
+    
   }
   
 
@@ -71,7 +73,7 @@ export interface Detail {
     details?: Detail[];
   }
   export interface EmployeeUpdate extends Employee{
-    id:any;
+    id:string;
    
   }
 export interface AuthResponce {

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +17,7 @@ export class ResetPasswordAdminComponent implements OnInit {
   emp_id: string;
   constructor(
     private router: Router,
+    private dialog: MatDialog,
     private hotTost: HotToastService,
     public dialogRef: MatDialogRef<ResetPasswordAdminComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -46,14 +47,16 @@ export class ResetPasswordAdminComponent implements OnInit {
     return this.employeeForm.controls[controlName].hasError(errorName);
   };
 
-  close() {
-    this.dialogRef.close();
-  }
+
+  closeDialog=false;
+  
   updatepassword() {
     if (this.employeeForm.valid) {
       this.passwordReset(this.employeeForm.value);
+      this.closeDialog=true;
+      // this.dialogRef.close();
     }
-    this.dialogRef.close();
+  //  this.dialog.open(ResetPasswordAdminComponent,{disableClose:true})
   }
 
   private passwordReset = (employeeFormValue: {
@@ -68,14 +71,24 @@ export class ResetPasswordAdminComponent implements OnInit {
     let apiUrl = `password-reset/${this.emp_id}`;
     this.repository.addKpi(apiUrl, password).subscribe(
       (res) => {
+        
         this.hotTost.success(
           'You have successfully Updated Password',
          
         );
+        this.dialogRef.close();
       },
       (error) => {
-        this.hotTost.error("Please check again!",error.message)
+        console.log(error.error.message)
+        this.hotTost.error(error.error.message)
       }
     );
   };
+
+
+  close() {
+    this.dialogRef.close();
+  }
 }
+
+

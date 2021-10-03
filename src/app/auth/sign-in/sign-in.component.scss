@@ -20,3 +20,17 @@
     border-bottom-right-radius: .3rem;
   }
 }
+mat-form-field{
+  width: 400px;
+  padding: 10px;
+  margin-left: 5px;
+  
+}
+mat-card-content, mat-card-title, mat-card-actions {
+  text-align: center;
+}
+
+mat-card-content{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

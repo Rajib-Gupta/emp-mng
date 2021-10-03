@@ -18,7 +18,9 @@ import { RepoService } from 'src/app/service/repo.service';
 import { Location } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import * as XLSX from 'xlsx';
-import { KpiDetailsComponent } from '../kpi-details/kpi-details.component';
+import {KpiDetailsHistoryComponent } from '../kpi-details/kpi-details.component';
+import { KpiDetailsComponent } from 'src/app/shared/components/kpi-details/kpi-details.component';
+
 interface year {
   value: number;
   viewValue: number;
@@ -85,6 +87,15 @@ export class KpiHistoryComponent implements OnInit {
     /* save to file */
     XLSX.writeFile(wb, 'Kpi_history.xlsx');
   }
+
+
+
+  showbutton(){
+    if(this.dataSource.data.length){
+      return false
+    }
+    return true
+  }
   public hasError = (controlName: string, errorName: string) => {
     return this.sessionForm.controls[controlName].hasError(errorName);
   };
@@ -142,13 +153,28 @@ export class KpiHistoryComponent implements OnInit {
     { value: 3, viewValue: 'Sep-Dec' },
   ];
 
-  openSupKpiDialog(id: any) {
+  openSupKpiDialog(sup_id: any) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      id: id,
+      emp_id: sup_id,
+      givenby_id:sup_id,
+      title: 'Add New Kpi Session',
+    };
+
+    const dialogRef = this.dialog.open(KpiDetailsComponent, dialogConfig);
+  }
+
+  openEmpKpiDialog(id: any) {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      emp_id: id,
+      givenby_id:id,
       title: 'Add New Kpi Session',
     };
 
