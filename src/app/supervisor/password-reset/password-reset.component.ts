@@ -56,7 +56,7 @@ export class PasswordResetComponent implements OnInit {
       if (this.employeeForm.valid) {
         this.passwordReset(this.employeeForm.value);
       }
-      this.dialogRef.close();
+     
     }
 
     private passwordReset = (employeeFormValue: {
@@ -76,6 +76,7 @@ export class PasswordResetComponent implements OnInit {
         
           this.hotTost.success(
             'You have successfully Updated Password')
+            this.dialogRef.close();
         },
         (error) => {
           this.hotTost.error("Please check again!",error.message)
