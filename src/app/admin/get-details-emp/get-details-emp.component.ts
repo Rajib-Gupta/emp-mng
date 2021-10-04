@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/model/employee';
 import { RepoService } from 'src/app/service/repo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-get-details-emp',
@@ -10,6 +11,7 @@ import { RepoService } from 'src/app/service/repo.service';
 })
 export class GetDetailsEmpComponent implements OnInit {
   public employee: Employee | undefined;
+  url:any
   constructor(private repoService: RepoService,
     private router: Router,
     private activeRoute: ActivatedRoute
@@ -26,7 +28,7 @@ export class GetDetailsEmpComponent implements OnInit {
       .subscribe((res:any) => {
         console.log(res.data)
         this.employee = res.data as Employee;
-  
+        this.url =`${environment.baseImageUrl}/${this.employee?.image}`
   
       },
       (error) => {

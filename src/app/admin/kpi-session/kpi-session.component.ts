@@ -97,7 +97,7 @@ export class KpiSessionComponent implements OnInit {
         }
       },
       (error:any) => {
-        this.hotTost.warning(error.message);
+        this.hotTost.warning(error.error.message);
       }
     );
   };
