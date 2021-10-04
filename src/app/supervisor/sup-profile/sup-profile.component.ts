@@ -49,6 +49,9 @@ export class SupProfileComponent implements OnInit {
         }, 0);
   
       }
+      else{
+        this.url = 'https://bootdey.com/img/Content/avatar/avatar1.png';
+      }
      
      
       // console.log('url', this.url);
