@@ -72,7 +72,7 @@ export class PasswordResetEmpComponent implements OnInit {
     let apiUrl = `password-reset/${this.emp_id}`;
     this.repository.addKpi(apiUrl, password).subscribe(
       (res) => {
-        console.log(res);
+       // console.log(res);
       
         this.hotTost.success(
           'You have successfully Updated Password',

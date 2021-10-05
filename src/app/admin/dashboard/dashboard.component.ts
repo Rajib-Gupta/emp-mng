@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
     this.getAllKpiSession();
     this.getAllEmployees();
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
-      console.log(`Closing modal`, modalCloseModal);
+     // console.log(`Closing modal`, modalCloseModal);
       this.getAllKpiSession();
     });
 
@@ -62,9 +62,9 @@ export class DashboardComponent implements OnInit {
 
 
     this.interaction.user$.subscribe((data: any) => {
-      console.log('data', data);
+     // console.log('data', data);
       this.employee = data as Employee;
-      console.log(data);
+     // console.log(data);
       setTimeout(() => {
         this.url = `${environment.baseImageUrl}/${data?.image}`;
       }, 0);
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
 
   public getAllKpiSession = () => {
     this.repoService.getData('kpi-details/').subscribe((res: any) => {
-      console.warn(res);
+     // console.warn(res);
       (this.dataSource.data = res['data'].rows as Session[]),
         (err: { status: string }) => {
           if (err instanceof HttpErrorResponse) {
@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res: any) => {
         this.employeeList = res['data'] as Count;
-        console.log(this.employeeList?.count);
+      //  console.log(this.employeeList?.count);
       },
       (_error) => {
         //error massage
@@ -105,18 +105,18 @@ export class DashboardComponent implements OnInit {
     this.employeeDelete
       .confirm('Please confirm..', 'Do you really want to Delete ?')
       .then((confirmed) => {
-        console.log(`[confirmed]`, confirmed);
+      //  console.log(`[confirmed]`, confirmed);
         if (!confirmed) {
           return;
         }
         const deleteUrl: string = `delete-session/${emp_id}`;
         this.repoService.delete(deleteUrl).subscribe(
           (res) => {
-            console.log(res);
+           // console.log(res);
              this.getAllKpiSession();
           },
           (error) => {
-            console.log(error);
+           // console.log(error);
           }
         );
       });
@@ -161,7 +161,7 @@ export class DashboardComponent implements OnInit {
     const employeeByIdUrl: string = `get-employee/${employeeId}`;
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res: any) => {
-        console.log(res.data);
+       //console.log(res.data);
         this.employee = res.data as Employee;
         this.url = `${environment.baseImageUrl}/${this.employee?.image}`;
       },

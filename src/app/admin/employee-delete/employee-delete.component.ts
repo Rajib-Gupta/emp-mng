@@ -35,7 +35,7 @@ public redirectToEmployeeList = () => {
 
 
  public deleteEmployee(){
-   console.log('52')
+ //  console.log('52')
   
    this.active.close(true)
 
