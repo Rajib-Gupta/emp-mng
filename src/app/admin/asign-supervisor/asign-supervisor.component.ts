@@ -28,7 +28,7 @@ export class AsignSupervisorComponent implements OnInit {
       private router: Router,
       @Inject(MAT_DIALOG_DATA) data:any) {
       this.description = data.id;
-      console.log(this.description)
+     // console.log(this.description)
   }
 
   ngOnInit() {
@@ -57,7 +57,7 @@ export class AsignSupervisorComponent implements OnInit {
   };
   
   public pushValue() {
-    console.log(this.Supervisors)
+   // console.log(this.Supervisors)
     this.super.unshift({ value: '', viewValue: 'None' });
     this.Supervisors.filter((item)=>item.id!==this.description).forEach((item) => {
       this.super.push({
@@ -65,14 +65,14 @@ export class AsignSupervisorComponent implements OnInit {
         value: item.id.toString(),
       });
     });
-    console.log(this.super);
+   // console.log(this.super);
    
   }
   private getEmployeeById = () => {
     let employeeByIdUrl: string = `get-employee/${ this.description}`;
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res) => {
-        console.log('res', res);
+      //  console.log('res', res);
         this.employee = res as Supervisor;
         this.employeeForm.patchValue({
           ...this.employee,
@@ -108,7 +108,7 @@ export class AsignSupervisorComponent implements OnInit {
     let apiUrl = `add-super/${this.description}`;
     this.repoService.update(apiUrl,{supervisor_id: employeeFormValue.sup_id}).subscribe(
       (res) => {
-        console.log(res);
+       // console.log(res);
         this.router.navigate(['admin/list']);
       },
       (error) => {

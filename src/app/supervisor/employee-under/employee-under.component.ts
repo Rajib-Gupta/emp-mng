@@ -35,6 +35,7 @@ export class EmployeeUnderComponent implements OnInit {
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
       this.getActiveSession();
+      this.getAllEmployees()
     });
   }
 
@@ -45,29 +46,30 @@ export class EmployeeUnderComponent implements OnInit {
   public getAllEmployees = () => {
     const employeeByIdUrl: string = `emp-under-super/${this.super_id}`;
     this.repoService.getData(employeeByIdUrl).subscribe({
-      next: (res:any) => {
-        const employees = res['data'].rows as EmployeeUpdate[]
-        this.employees = employees.map(emp => {
-          if(emp.image) {
-            emp.image = `${environment.baseImageUrl}/${emp?.image}`
+      next: (res: any) => {
+        const employees = res['data'].rows as EmployeeUpdate[];
+        
+        this.employees = employees.map((emp) => {
+         emp.employee_kpi_allow= emp.employee_kpi && Object.keys(emp.employee_kpi) ? false : true
+          if (emp.image) {
+            emp.image = `${environment.baseImageUrl}/${emp?.image}`;
           } else {
-            emp.image =  'https://bootdey.com/img/Content/avatar/avatar1.png'
+            emp.image = 'https://bootdey.com/img/Content/avatar/avatar1.png';
           }
-          return emp
-        })
-       
+          return emp;
+        });
       },
-      error:  (err: { status: string }) => {
+      error: (err: { status: string }) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status == '401') {
             this.router.navigate(['/signin']);
           }
         }
-      }
-    })
+      },
+    });
     // this.repoService.getData(employeeByIdUrl).subscribe((res: any) => {
     //   (this.employees = res['data'].rows as EmployeeUpdate[]),
-     
+
     //   console.log(this.employees);
     // },
     //   (err: { status: string }) => {
@@ -77,41 +79,28 @@ export class EmployeeUnderComponent implements OnInit {
     //       }
     //     }
     //   });
-    
   };
 
-  
-  isSubmitted(){
-    this.employees.forEach((element:any) => {
-      if(this.session?.[0]?.employee_kpis?.[0]?.givenby_id===this.super_id && this.session?.[0]?.employee_kpis?.[0]?.emp_id===this.employees[element]?.id){
-          return true
-      }
-     return false
-    })
-   
-  }
-
+ 
   private getActiveSession = () => {
     const sessionByUrl: string = `getkpi-super/`;
     this.repoService.getData(sessionByUrl).subscribe(
       (res: any) => {
-       // console.log(res?.data);
+        // console.log(res?.data);
         this.isshowing = true;
         this.session = res?.data['rows'] as Session[];
-       // console.log(this.session)
+        // console.log(this.session)
 
         this.showKPIBtn =
           !this.session[0]?.is_completed && this.session[0]?.is_active
             ? true
             : false;
-            
       },
       (error) => {
         //this.errorHandler.handleError(error);
         //this.errorMessage = this.errorHandler.errorMessage;
       }
     );
-   
   };
   isshowing = false;
 
@@ -122,13 +111,11 @@ export class EmployeeUnderComponent implements OnInit {
 
     dialogConfig.data = {
       id: id,
-      sessionId:this.session[0]?.id,
+      sessionId: this.session[0]?.id,
       title: 'Add Kpi',
     };
 
-    this.dialog
-      .open(AddKpiComponent, dialogConfig)
-      
+    this.dialog.open(AddKpiComponent, dialogConfig);
   }
 
   openKpiDetailsDialog(id: any) {
@@ -138,14 +125,12 @@ export class EmployeeUnderComponent implements OnInit {
 
     dialogConfig.data = {
       emp_id: id,
-      givenby_id:this.super_id,
-      sessionId:this.session[0]?.id,
+      givenby_id: this.super_id,
+      sessionId: this.session[0]?.id,
       title: 'Add Kpi',
     };
 
-    this.dialog
-      .open(KpiDetailsComponent, dialogConfig)
-      
+    this.dialog.open(KpiDetailsComponent, dialogConfig);
   }
 
   redirectToEmployeeKpiDetails(id: string) {
@@ -153,10 +138,13 @@ export class EmployeeUnderComponent implements OnInit {
     this.router.navigate([kpiurl]);
   }
 
-  isActive(){
-    if(this.session?.[0]?.is_active==1 && this.session?.[0]?.is_completed==0){
-      return false
+  isActive() {
+    if (
+      this.session?.[0]?.is_active == 1 &&
+      this.session?.[0]?.is_completed == 0
+    ) {
+      return false;
     }
-    return true
+    return true;
   }
 }

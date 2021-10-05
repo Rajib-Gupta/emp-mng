@@ -89,7 +89,7 @@ export class AddEmployeeComponent implements OnInit {
 
   public addemployee = (employeeFormValue: any) => {
     if (this.employeeForm.valid) {
-      console.log(this.employeeForm.value);
+      //console.log(this.employeeForm.value);
       this.executeEmployeeAdd(employeeFormValue);
     }
   };
@@ -145,7 +145,7 @@ export class AddEmployeeComponent implements OnInit {
           let apiUrl = 'create/';
           this.repository.create(apiUrl, employee).subscribe(
             (res) => {
-              if (res) console.log(res);
+              if (res)// console.log(res);
               this.location.back();
             },
             (error) => {

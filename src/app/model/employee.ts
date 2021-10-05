@@ -74,7 +74,8 @@ export interface Detail {
   }
   export interface EmployeeUpdate extends Employee{
     id:string;
-   
+    employee_kpi?:any;
+   employee_kpi_allow?:boolean
   }
 export interface AuthResponce {
   email: string;
