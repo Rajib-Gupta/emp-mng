@@ -57,7 +57,7 @@ export class EmployeeUnderComponent implements OnInit {
         const employees = res['data'].rows as EmployeeUpdate[];
 
         this.employees = employees.map((emp) => {
-          emp.employee_kpi_allow = this.getKpiActiveStatus(emp);
+          emp.disallow_kpi_add = this.getKpiActiveStatus(emp);
           if (emp.image) {
             emp.image = `${environment.baseImageUrl}/${emp?.image}`;
           } else {
