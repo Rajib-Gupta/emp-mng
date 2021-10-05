@@ -19,6 +19,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./employee-under.component.scss'],
 })
 export class EmployeeUnderComponent implements OnInit {
+  getKpiActiveStatus(emp: any): boolean | undefined {
+    if(emp.emp_id===emp.givenby_id && emp.employee_kpi?.kpi_session?.is_active===1) {
+      return true
+    }
+    return false;
+  }
+
   employees!: EmployeeUpdate[];
   showKPIBtn: number | boolean | undefined;
   session!: Session[];
@@ -50,12 +57,7 @@ export class EmployeeUnderComponent implements OnInit {
         const employees = res['data'].rows as EmployeeUpdate[];
 
         this.employees = employees.map((emp) => {
-          emp.employee_kpi_allow =
-            emp.employee_kpi &&
-            Object.keys(emp.employee_kpi) &&
-            emp.employee_kpi?.givenby_id == emp.employee_kpi?.supervisor_id
-              ? false
-              : true;
+          emp.employee_kpi_allow = this.getKpiActiveStatus(emp);
           if (emp.image) {
             emp.image = `${environment.baseImageUrl}/${emp?.image}`;
           } else {
