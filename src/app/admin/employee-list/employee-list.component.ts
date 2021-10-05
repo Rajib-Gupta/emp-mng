@@ -54,6 +54,10 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllEmployees();
+    this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
+      //console.log(`Closing modal`, modalCloseModal);
+      this.getAllEmployees();
+    });
   }
 
   public getAllEmployees = () => {
