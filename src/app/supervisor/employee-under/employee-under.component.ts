@@ -20,7 +20,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EmployeeUnderComponent implements OnInit {
   getKpiActiveStatus(emp: any): boolean | undefined {
-    if(emp.emp_id===emp.givenby_id && emp.employee_kpi?.kpi_session?.is_active===1) {
+    if(emp.emp_id===emp.givenby_id || emp.employee_kpi?.kpi_session?.is_active===1) {
       return true
     }
     return false;
