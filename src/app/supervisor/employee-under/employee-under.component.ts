@@ -35,7 +35,7 @@ export class EmployeeUnderComponent implements OnInit {
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
       this.getActiveSession();
-      this.getAllEmployees()
+      this.getAllEmployees();
     });
   }
 
@@ -48,9 +48,14 @@ export class EmployeeUnderComponent implements OnInit {
     this.repoService.getData(employeeByIdUrl).subscribe({
       next: (res: any) => {
         const employees = res['data'].rows as EmployeeUpdate[];
-        
+
         this.employees = employees.map((emp) => {
-         emp.employee_kpi_allow= emp.employee_kpi && Object.keys(emp.employee_kpi) ? false : true
+          emp.employee_kpi_allow =
+            emp.employee_kpi &&
+            Object.keys(emp.employee_kpi) &&
+            emp.employee_kpi?.givenby_id == emp.employee_kpi?.supervisor_id
+              ? false
+              : true;
           if (emp.image) {
             emp.image = `${environment.baseImageUrl}/${emp?.image}`;
           } else {
@@ -81,7 +86,6 @@ export class EmployeeUnderComponent implements OnInit {
     //   });
   };
 
- 
   private getActiveSession = () => {
     const sessionByUrl: string = `getkpi-super/`;
     this.repoService.getData(sessionByUrl).subscribe(
