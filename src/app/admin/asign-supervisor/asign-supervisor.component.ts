@@ -109,7 +109,7 @@ export class AsignSupervisorComponent implements OnInit {
     this.repoService.update(apiUrl,{supervisor_id: employeeFormValue.sup_id}).subscribe(
       (res) => {
        // console.log(res);
-        this.router.navigate(['admin/list']);
+       this.dialogRef.close();
       },
       (error) => {
         /* this.errorHandler.handleError(error);
@@ -123,7 +123,7 @@ export class AsignSupervisorComponent implements OnInit {
 
   close() {
       this.dialogRef.close();
-      this.router.navigate(['admin/list']);
+     
   }
 
 
