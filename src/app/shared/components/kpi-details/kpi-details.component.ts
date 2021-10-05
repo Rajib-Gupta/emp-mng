@@ -11,7 +11,7 @@ import { RepoService } from 'src/app/service/repo.service';
   styleUrls: ['./kpi-details.component.scss'],
 })
 export class KpiDetailsComponent implements OnInit {
-  public employee: kpiDetails[] | undefined;
+  public employee:any| undefined;
   kpi_details_emp_id: any;
   kpi_details_givenby_id: any;
   constructor(
@@ -36,7 +36,7 @@ export class KpiDetailsComponent implements OnInit {
     const employeeByIdUrl: string = `get-kpi-data/${employeeId}/${givenById}`;
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res: any) => {
-        this.employee = res.kpiData?.[0] as kpiDetails[];
+        this.employee = res.kpiData[0];
          //console.log(this.employee);
         this.hotTost.success(res.message);
       },
