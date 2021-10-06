@@ -9,15 +9,15 @@
             </div>
             <div class="media-body">
                 <div class="mb-2">
-                    <span class="fs-20 pr-16">{{employee.f_name}} {{employee.l_name}}</span>
+                    <span class="fs-20 pr-16">{{employee?.f_name}} {{employee?.l_name}}</span>
                 </div>
-                <small class="fs-16 fw-300 ls-1">{{employee.desig}}</small>
+                <small class="fs-16 fw-300 ls-1">{{employee?.desig}}</small>
             </div>
         </div>
         <footer class="card-footer flexbox align-items-center">
             <div>
                 <strong>Joining on: </strong>
-                <span>{{employee.doj}}</span>
+                <span>{{employee?.doj}}</span>
             </div>
             
             <div class="card-hover-show">

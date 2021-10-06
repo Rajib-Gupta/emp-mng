@@ -33,6 +33,7 @@ export class SupProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getActiveSession();
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
       this.getActiveSession();
@@ -202,10 +203,15 @@ export class SupProfileComponent implements OnInit {
 
 
   isSubmitted() {
-    if (this.session?.[0]?.employee_kpis?.[0]?.givenby_id == this.super_id) {
-     
-      return true;
+    if(this.employee?.employee_kpi) {
+      return true
     }
-    return false;
+
+    return false
+    // if (this.session?.[0]?.employee_kpis?.[0]?.givenby_id == this.super_id) {
+     
+    //   return true;
+    // }
+    // return false;
   }
 }

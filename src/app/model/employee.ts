@@ -70,12 +70,14 @@ export interface Detail {
     desig:string;
     image?:string;
     supervisor_id?:string;
+    employee_kpi?:any;
     details?: Detail[];
   }
   export interface EmployeeUpdate extends Employee{
     id:string;
     employee_kpi?:any;
-    disallow_kpi_add?:boolean
+    disallow_kpi_add?:boolean,
+    employee:any
   }
 export interface AuthResponce {
   email: string;
