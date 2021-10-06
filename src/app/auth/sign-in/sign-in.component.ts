@@ -82,7 +82,7 @@ export class SignInComponent implements OnInit {
                 localStorage.setItem('data', JSON.stringify(res.data));
                 this.hotTost.success(
                   `You have successfully login!
-                  Welcome ${res.data.f_name} To Admin Dashboard`
+                  Welcome ${res.data.f_name} To Supervisor profile`
                 );
                 localStorage.setItem('token', res.token);
                 // this.interaction.setUser(res.data)
@@ -93,7 +93,7 @@ export class SignInComponent implements OnInit {
                 localStorage.setItem('data', JSON.stringify(res.data));
                 this.hotTost.success(
                   `You have successfully login!
-                  Welcome ${res.data.f_name} To Admin Dashboard`
+                  Welcome ${res.data.f_name} To Employee Profile`
                 );
                 localStorage.setItem('token', res.token);
                 // this.interaction.setUser(res.data)
