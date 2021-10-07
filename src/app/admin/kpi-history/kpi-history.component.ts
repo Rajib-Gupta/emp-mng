@@ -153,13 +153,13 @@ export class KpiHistoryComponent implements OnInit {
     { value: 3, viewValue: 'Sep-Dec' },
   ];
 
-  openSupKpiDialog(sup_id: any) {
+  openSupKpiDialog(sup_id: any,emp_id:any) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      emp_id: sup_id,
+      emp_id: emp_id,
       givenby_id:sup_id,
       title: 'Add New Kpi Session',
     };
