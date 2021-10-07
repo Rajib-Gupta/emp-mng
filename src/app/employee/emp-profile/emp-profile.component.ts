@@ -108,6 +108,12 @@ export class EmpProfileComponent implements OnInit {
                  If you have already given then please ignore this.
             `);
           }, 2000);
+        }else {
+          setTimeout(() => {
+            this.hotTost.error(
+              `Session is closed, You can check your given Kpi Details of previous Session!`
+            );
+          }, 3000);
         }
         // console.log(this.session);
         this.showKPIBtn =
