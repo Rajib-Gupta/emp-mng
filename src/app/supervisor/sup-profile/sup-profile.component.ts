@@ -115,13 +115,7 @@ export class SupProfileComponent implements OnInit {
         } else {
           setTimeout(() => {
             this.hotTost.error(
-              `Session ${
-                this.session?.[0]?.session == 1
-                  ? 'Jan-April'
-                  : this.session?.[0]?.session == 2
-                  ? 'May-August'
-                  : 'Sep-Dec'
-              } is closed, You can check your given Kpi Details!`
+              `Session is closed, You can check your given Kpi Details of previous Session!`
             );
           }, 3000);
         }
