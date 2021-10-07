@@ -84,7 +84,7 @@ export class AddKpiComponent implements OnInit {
     if (this.sessionForm.valid) {
       this.executeKpiAdd(this.sessionForm.value);
     }
-     this.location.back();
+    
   };
   private executeKpiAdd = (sessionFormValue: {
     availability: number;
