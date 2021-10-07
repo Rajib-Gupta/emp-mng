@@ -130,7 +130,7 @@ export interface UpdateSession{
   is_completed:number
 }
 export interface addKpi{
- 
+  emp_id?:string;
   supervisor_id?:string;
   givenby_id:string,
   kpiSessionId:string

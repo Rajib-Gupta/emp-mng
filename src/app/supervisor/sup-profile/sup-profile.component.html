@@ -28,7 +28,7 @@
                   class="btn btn-info hideKpiBtn"
                   [class.showKpiBtn]="showKPIBtn"
                   (click)="openKpiDialog()"
-                  [disabled]="isSubmitted()"
+                  [disabled]="getKpiActiveStatus()"
                 >
                   Give Kpi to Yourself
                 </button>

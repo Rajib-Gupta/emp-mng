@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngneat/hot-toast';
-import { Employee, Session } from 'src/app/model/employee';
+import { addKpi, Employee, Session } from 'src/app/model/employee';
 import { InteractionService } from 'src/app/service/interaction.service';
 import { RepoService } from 'src/app/service/repo.service';
 import { KpiDetailsComponent } from 'src/app/shared/components/kpi-details/kpi-details.component';
@@ -14,38 +14,55 @@ import { SupKpiAddComponent } from '../sup-kpi-add/sup-kpi-add.component';
 @Component({
   selector: 'app-emp-profile',
   templateUrl: './emp-profile.component.html',
-  styleUrls: ['./emp-profile.component.scss']
+  styleUrls: ['./emp-profile.component.scss'],
 })
 export class EmpProfileComponent implements OnInit {
-  employee!: Employee 
-  showKPIBtn: number | boolean | undefined;
-  url:any
+  isDisAllowForEmp = false;
+  isDisAllowForSup = false;
+  getKpiActiveStatus(kpi: any): void | undefined {
+    if (kpi?.emp_id === kpi?.givenby_id && kpi?.kpi_details) {
+      this.isDisAllowForEmp = true;
+    }
 
-  images!:any;
+    if (
+      kpi?.givenby_id == this.employee.id &&
+      kpi?.emp_id == this.employee?.supervisor_id
+    ) {
+      this.isDisAllowForSup = true;
+    }
+  }
+
+  employee!: Employee;
+  showKPIBtn: number | boolean | undefined;
+  url: any;
+  kpiData: any;
+  images!: any;
   session!: Session[];
-  constructor(   private repoService: RepoService,
+  constructor(
+    private repoService: RepoService,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private dialog: MatDialog,
-    private interaction: InteractionService, 
-    private hotTost: HotToastService) { }
+    private interaction: InteractionService,
+    private hotTost: HotToastService
+  ) {}
 
   ngOnInit(): void {
-  //  this.getActiveSession()
+     // this.getActiveSession()
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
       this.getActiveSession();
+      this.getEmployeeKpiCurrentDetails();
     });
     this.interaction.user$.subscribe((data: any) => {
       console.log('data', data);
       this.employee = data as Employee;
+      this.getEmployeeKpiCurrentDetails();
       console.log(data);
-      if(this.employee?.image) {
-
+      if (this.employee?.image) {
         setTimeout(() => {
           this.url = `${environment.baseImageUrl}/${data?.image}`;
         }, 0);
-  
       }
 
       console.log('url', this.url);
@@ -54,21 +71,20 @@ export class EmpProfileComponent implements OnInit {
 
   _name = JSON.parse(localStorage.getItem('data') as string);
 
-  employee_id=this._name?.id;
+  employee_id = this._name?.id;
   employee_fname = this._name?.f_name;
   employee_lname = this._name?.l_name;
   employee_email = this._name?.email;
   employee_phone = this._name?.phone;
-  employee_desig=this._name?.desig
-  employee_role=this._name?.role
-  employee_supervisor=this._name?.supervisor_id
+  employee_desig = this._name?.desig;
+  employee_role = this._name?.role;
+  employee_supervisor = this._name?.supervisor_id;
 
-
-  isSubmitted(){
-    if(this.session?.[0]?.employee_kpis?.[0]?.givenby_id==this.employee_id){
-      return true
+  isSubmitted() {
+    if (this.session?.[0]?.employee_kpis?.[0]?.givenby_id == this.employee_id) {
+      return true;
     }
-    return false
+    return false;
   }
 
   private getActiveSession = () => {
@@ -78,8 +94,9 @@ export class EmpProfileComponent implements OnInit {
         console.log(res.data);
         this.session = res.data['rows'] as Session[];
         if (this.session) {
-          setTimeout(()=>{
-            this.hotTost.warning(`Please give kpi to yourself and your supervisor also,for year: ${
+          setTimeout(() => {
+            this.hotTost
+              .warning(`Please give kpi to yourself and your supervisor also,for year: ${
               this.session?.[0]?.year
             } , 
             session:${
@@ -91,15 +108,37 @@ export class EmpProfileComponent implements OnInit {
             },
                  If you have already given then please ignore this.
             `);
-          },2000)
-     
+          }, 2000);
         }
-       // console.log(this.session);
+        // console.log(this.session);
         this.showKPIBtn =
           !this.session[0]?.is_completed && this.session[0]?.is_active
             ? true
             : false;
         console.log('this.showKPIBtn', this.showKPIBtn);
+      },
+      (error) => {
+        //this.errorHandler.handleError(error);
+        //this.errorMessage = this.errorHandler.errorMessage;
+      }
+    );
+  };
+
+  private getEmployeeKpiCurrentDetails = () => {
+    let details: any = {
+      givenby_id: this.employee?.supervisor_id,
+      emp_id: this.employee?.id,
+    };
+    // console.log('======>', details);
+
+    const sessionByUrl: string = `get-details-submitKpi/`;
+    this.repoService.create(sessionByUrl, details).subscribe(
+      (res: any) => {
+        console.log(res.data);
+        this.kpiData = res.data as addKpi[];
+        this.kpiData = this.kpiData.forEach((kpi: any) => {
+          this.getKpiActiveStatus(kpi);
+        });
       },
       (error) => {
         //this.errorHandler.handleError(error);
@@ -115,69 +154,63 @@ export class EmpProfileComponent implements OnInit {
 
     dialogConfig.data = {
       id: this.employee_id,
-      sessionId:this.session[0].id,
+      sessionId: this.session[0].id,
       title: 'Add Kpi',
     };
 
-    this.dialog
-      .open(AddKpiEmpComponent, dialogConfig)
-      
+    this.dialog.open(AddKpiEmpComponent, dialogConfig);
   }
 
-  openSupKpiDialog(){
+  openSupKpiDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      id:this.employee_supervisor,
-      sessionId:this.session[0].id,
+      id: this.employee_supervisor,
+      sessionId: this.session[0].id,
       title: 'Add Kpi',
     };
 
-    this.dialog
-      .open(SupKpiAddComponent, dialogConfig)
-
+    this.dialog.open(SupKpiAddComponent, dialogConfig);
   }
 
-  ownKpiDetailsDialog(id:any){
+  ownKpiDetailsDialog(id: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      emp_id:id,
-      givenby_id:id,
+      emp_id: id,
+      givenby_id: id,
       title: 'Kpi Details',
     };
 
-    this.dialog
-      .open(KpiDetailsComponent, dialogConfig)
-
+    this.dialog.open(KpiDetailsComponent, dialogConfig);
   }
 
-  supKpiDetailsDialog(id:any){
+  supKpiDetailsDialog(id: any) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      emp_id:id,
-      givenby_id:this.employee.id,
+      emp_id: id,
+      givenby_id: this.employee.id,
       title: 'Kpi Details',
     };
 
-    this.dialog
-      .open(KpiDetailsComponent, dialogConfig)
-
+    this.dialog.open(KpiDetailsComponent, dialogConfig);
   }
-  isActive(){
-    if(this.session?.[0]?.is_active==1 && this.session?.[0]?.is_completed==0){
-      return false
+  isActive() {
+    if (
+      this.session?.[0]?.is_active == 1 &&
+      this.session?.[0]?.is_completed == 0
+    ) {
+      return false;
     }
-    return true
+    return true;
   }
-
 
   onSelectFile(event: any) {
     if (event.target.files.length > 0) {
@@ -204,33 +237,32 @@ export class EmpProfileComponent implements OnInit {
   }
 
   isshowing = false;
-    
-private getEmployeeById = () => {
-  const employeeId: string = this.employee_id;
-  const employeeByIdUrl: string = `get-employee/${employeeId}`;
-  this.repoService.getData(employeeByIdUrl)
-    .subscribe((res:any) => {
-      console.log(res.data)
-      this.employee = res.data as Employee;
-      this.url =`${environment.baseImageUrl}/${this.employee?.image}`
 
-    },
-    (error) => {
-      //this.errorHandler.handleError(error);
-      //this.errorMessage = this.errorHandler.errorMessage;
-    })
-}
-
-
-openPasswordResetDialog(){
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
-  dialogConfig.data = {
-    id: this.employee_id,
-    title: 'Rest your Password',
+  private getEmployeeById = () => {
+    const employeeId: string = this.employee_id;
+    const employeeByIdUrl: string = `get-employee/${employeeId}`;
+    this.repoService.getData(employeeByIdUrl).subscribe(
+      (res: any) => {
+        console.log(res.data);
+        this.employee = res.data as Employee;
+        this.url = `${environment.baseImageUrl}/${this.employee?.image}`;
+      },
+      (error) => {
+        //this.errorHandler.handleError(error);
+        //this.errorMessage = this.errorHandler.errorMessage;
+      }
+    );
   };
 
-  this.dialog.open(PasswordResetEmpComponent, dialogConfig);
-}
+  openPasswordResetDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      id: this.employee_id,
+      title: 'Rest your Password',
+    };
+
+    this.dialog.open(PasswordResetEmpComponent, dialogConfig);
+  }
 }

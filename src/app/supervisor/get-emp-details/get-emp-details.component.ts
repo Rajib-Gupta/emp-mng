@@ -28,7 +28,16 @@ private getEmployeeById = () => {
     .subscribe((res:any) => {
       console.log(res.data)
       this.employee = res.data as Employee;
-      this.url =`${environment.baseImageUrl}/${this.employee?.image}`
+      if(this.employee?.image) {
+        setTimeout(() => {
+          this.url =`${environment.baseImageUrl}/${this.employee?.image}`
+        }, 0);
+  
+      }
+      else{
+        this.url = 'https://bootdey.com/img/Content/avatar/avatar1.png';
+      }
+     
 
 
 

@@ -2,12 +2,12 @@
   <mat-card class="box">
     <div class="card-header">
       <h1 class="card-title">Kpi Details of  {{
-        employee?.kpi_session?.session?.session == 1
+        employee?.session == 1
           ? "Jan-April"
-          : employee?.kpi_session?.session?.session == 2
+          : employee?.session == 2
           ? "May-August"
           : "Sep-Dec" || "N/A"
-      }} in {{ employee?.kpi_session?.year || "NA"}} </h1>
+      }} in {{ employee?.year || "NA"}} </h1>
     </div>
     <br />
     <mat-dialog-content>

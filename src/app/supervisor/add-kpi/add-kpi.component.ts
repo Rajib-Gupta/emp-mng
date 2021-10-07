@@ -123,13 +123,12 @@ export class AddKpiComponent implements OnInit {
     let apiUrl = `add-kpi/${this.emp_id}`;
     this.repository.addKpi(apiUrl, kpi).subscribe(
       (res) => {
-        console.log(res);
-        this.router.navigate(['/supervisor/employee-under'])
-         this.location.back();
+       // console.log(res);
+        this.dialogRef.close();
       },
       (error) => {
         this.toastr.error("Please check again!",error.message)
-        this.location.back();
+        
       }
     );
   };
