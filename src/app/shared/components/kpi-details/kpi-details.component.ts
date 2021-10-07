@@ -38,7 +38,7 @@ export class KpiDetailsComponent implements OnInit {
       (res: any) => {
         this.employee = res.kpiData[0];
          //console.log(this.employee);
-        this.hotTost.success(res.message);
+       
       },
       (error) => {
         this.hotTost.error(error.error.message);
