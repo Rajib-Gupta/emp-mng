@@ -48,10 +48,9 @@ export class EmpProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-     // this.getActiveSession()
+      this.getActiveSession()
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
-      this.getActiveSession();
       this.getEmployeeKpiCurrentDetails();
     });
     this.interaction.user$.subscribe((data: any) => {

@@ -103,9 +103,9 @@ export class SupProfileComponent implements OnInit {
               this.session?.[0]?.year
             } , 
             session:${
-              this.session?.[0]?.session?.session == 1
+              this.session?.[0]?.session == 1
                 ? 'Jan-April'
-                : this.session?.[0]?.session?.session == 2
+                : this.session?.[0]?.session == 2
                 ? 'May-August'
                 : 'Sep-Dec'
             },
@@ -116,9 +116,9 @@ export class SupProfileComponent implements OnInit {
           setTimeout(() => {
             this.hotTost.error(
               `Session ${
-                this.session?.[0]?.session?.session == 1
+                this.session?.[0]?.session == 1
                   ? 'Jan-April'
-                  : this.session?.[0]?.session?.session == 2
+                  : this.session?.[0]?.session == 2
                   ? 'May-August'
                   : 'Sep-Dec'
               } is closed, You can check your given Kpi Details!`
