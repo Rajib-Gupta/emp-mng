@@ -17,6 +17,24 @@ import { PasswordResetComponent } from '../password-reset/password-reset.compone
   styleUrls: ['./sup-profile.component.scss'],
 })
 export class SupProfileComponent implements OnInit {
+
+
+  getKpiActiveStatus(): boolean | undefined {
+    if (this.session?.[0]?.is_active === 0) {
+      return true;
+    }
+
+    if (this.employee?.id === this.employee?.employee_kpi?.givenby_id && this.employee.employee_kpi) {
+      return true;
+    }
+
+    // if (emp.employee_kpi.kpiSessionId) {
+    //   return true;
+    // }
+
+    return false;
+  }
+
   session!: Session[];
   employee!: Employee;
   public employeeKpiDetails: kpiDetails | undefined;
@@ -36,7 +54,7 @@ export class SupProfileComponent implements OnInit {
     this.getActiveSession();
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
-      this.getActiveSession();
+     // this.getActiveSession();
     });
    // this.getActiveSession();
     this.interaction.user$.subscribe((data: any) => {
@@ -78,35 +96,35 @@ export class SupProfileComponent implements OnInit {
         this.isshowing = true;
         this.session = res.data['rows'] as Session[];
 
-        // if (this.session.length) {
-        //   setTimeout(() => {
-        //     this.hotTost
-        //       .warning(`Please give kpi to yourself and your employee also,for year: ${
-        //       this.session?.[0]?.year
-        //     } , 
-        //     session:${
-        //       this.session?.[0]?.session?.session == 1
-        //         ? 'Jan-April'
-        //         : this.session?.[0]?.session?.session == 2
-        //         ? 'May-August'
-        //         : 'Sep-Dec'
-        //     },
-        //          If you have already given then please ignore this.
-        //     `);
-        //   }, 2000);
-        // } else {
-        //   setTimeout(() => {
-        //     this.hotTost.error(
-        //       `Session ${
-        //         this.session?.[0]?.session?.session == 1
-        //           ? 'Jan-April'
-        //           : this.session?.[0]?.session?.session == 2
-        //           ? 'May-August'
-        //           : 'Sep-Dec'
-        //       } is closed, You can check your given Kpi Details!`
-        //     );
-        //   }, 3000);
-        // }
+        if (this.session.length) {
+          setTimeout(() => {
+            this.hotTost
+              .warning(`Please give kpi to yourself and your employee also,for year: ${
+              this.session?.[0]?.year
+            } , 
+            session:${
+              this.session?.[0]?.session?.session == 1
+                ? 'Jan-April'
+                : this.session?.[0]?.session?.session == 2
+                ? 'May-August'
+                : 'Sep-Dec'
+            },
+                 If you have already given then please ignore this.
+            `);
+          }, 2000);
+        } else {
+          setTimeout(() => {
+            this.hotTost.error(
+              `Session ${
+                this.session?.[0]?.session?.session == 1
+                  ? 'Jan-April'
+                  : this.session?.[0]?.session?.session == 2
+                  ? 'May-August'
+                  : 'Sep-Dec'
+              } is closed, You can check your given Kpi Details!`
+            );
+          }, 3000);
+        }
 
         //   console.log(this.session);
         this.showKPIBtn =

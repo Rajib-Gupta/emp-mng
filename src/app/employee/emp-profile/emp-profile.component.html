@@ -7,6 +7,7 @@
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
                     <label class="hoverable" for="fileInput" style="text-align: center;">
+                    
                       <img [src]="url || '../../../../../assets/avtar.png'" class="rounded-circle" />
                        <div class="hover-text">Choose file</div>
                       </label>
@@ -18,7 +19,7 @@
                     </div>
                     <div>
                       <button class="btn btn-info " class="btn btn-info hideKpiBtn"
-                      [class.showKpiBtn]="showKPIBtn"  [disabled]="isSubmitted()" (click)="openKpiDialog()" >Give Kpi to Yourself</button>
+                      [class.showKpiBtn]="showKPIBtn" [disabled]="isDisAllowForEmp" (click)="openKpiDialog()" >Give Kpi to Yourself</button>
                       <button class="btn btn-primary"  (click)="ownKpiDetailsDialog(employee.id)">Your Kpi Details</button>
                     </div>
                    
@@ -26,7 +27,7 @@
                     <br>
                     <div>
                     <button class="btn btn-info " class="btn btn-info hideKpiBtn"
-                    [class.showKpiBtn]="showKPIBtn" [disabled]="isSubmitted()" (click)="openSupKpiDialog()" > Kpi for Your Supervisor</button>
+                    [class.showKpiBtn]="showKPIBtn" [disabled]="isDisAllowForSup" (click)="openSupKpiDialog()" > Kpi for Your Supervisor</button>
                     <button class="btn btn-primary" (click)="supKpiDetailsDialog(employee.supervisor_id)">Supervisor Kpi Details</button>
                   </div>
                   </div>

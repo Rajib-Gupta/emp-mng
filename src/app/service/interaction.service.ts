@@ -23,4 +23,8 @@ export class InteractionService {
   refreshUserData(status:boolean){
     this.refreshUser.next(status)
   }
+
+  getEmployee(){
+    return this.user.value
+  }
 }
