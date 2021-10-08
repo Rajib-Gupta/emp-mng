@@ -17,14 +17,15 @@ import { PasswordResetComponent } from '../password-reset/password-reset.compone
   styleUrls: ['./sup-profile.component.scss'],
 })
 export class SupProfileComponent implements OnInit {
-
-
   getKpiActiveStatus(): boolean | undefined {
     if (this.session?.[0]?.is_active === 0) {
       return true;
     }
 
-    if (this.employee?.id === this.employee?.employee_kpi?.givenby_id && this.employee.employee_kpi) {
+    if (
+      this.employee?.id === this.employee?.employee_kpi?.givenby_id &&
+      this.employee.employee_kpi
+    ) {
       return true;
     }
 
@@ -54,25 +55,21 @@ export class SupProfileComponent implements OnInit {
     this.getActiveSession();
     this.dialog.afterAllClosed.subscribe((modalCloseModal) => {
       console.log(`Closing modal`, modalCloseModal);
-     // this.getActiveSession();
+      // this.getActiveSession();
     });
-   // this.getActiveSession();
+    // this.getActiveSession();
     this.interaction.user$.subscribe((data: any) => {
       console.log('data', data);
       this.employee = data as Employee;
-    //  console.log(data);
-      if(this.employee?.image) {
-
+      //  console.log(data);
+      if (this.employee?.image) {
         setTimeout(() => {
           this.url = `${environment.baseImageUrl}/${data?.image}`;
         }, 0);
-  
-      }
-      else{
+      } else {
         this.url = 'https://bootdey.com/img/Content/avatar/avatar1.png';
       }
-     
-     
+
       // console.log('url', this.url);
     });
     this.isSubmitted();
@@ -103,9 +100,9 @@ export class SupProfileComponent implements OnInit {
               this.session?.[0]?.year
             } , 
             session:${
-              this.session?.[0]?.session == 1
+              this.session?.[0]?.session?.session === '1'
                 ? 'Jan-April'
-                : this.session?.[0]?.session == 2
+                : this.session?.[0]?.session?.session === '2'
                 ? 'May-August'
                 : 'Sep-Dec'
             },
@@ -147,7 +144,6 @@ export class SupProfileComponent implements OnInit {
       sessionId: this.session[0]?.id,
       title: 'Add Kpi',
     };
-   
 
     this.dialog.open(AddOwnKpiComponent, dialogConfig);
   }
@@ -162,7 +158,6 @@ export class SupProfileComponent implements OnInit {
       sessionId: this.session[0]?.id,
       title: 'Kpi Details',
     };
-
 
     this.dialog.open(KpiDetailsComponent, dialogConfig);
   }
@@ -200,7 +195,6 @@ export class SupProfileComponent implements OnInit {
         formData.append('file', this.images);
         let apiUrl = `upload-image/${this.super_id}`;
         this.repoService.upload(apiUrl, formData).subscribe((res) => {
-         
           // console.log(res);
         }),
           (error: any) => {
@@ -213,15 +207,14 @@ export class SupProfileComponent implements OnInit {
     }
   }
 
-
   isSubmitted() {
-    if(this.employee?.employee_kpi) {
-      return true
+    if (this.employee?.employee_kpi) {
+      return true;
     }
 
-    return false
+    return false;
     // if (this.session?.[0]?.employee_kpis?.[0]?.givenby_id == this.super_id) {
-     
+
     //   return true;
     // }
     // return false;

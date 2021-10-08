@@ -116,7 +116,7 @@
           [disabled]="!element.sup_avg"
           mat-icon-button
           color="primary"
-          (click)=openSupKpiDialog(element.supervisor_id,element.emp_id)
+          (click)=openSupKpiDialog(element.supervisor_id,element.emp_id,element.kpiSessionId)
         >
           <mat-icon class="mat-18">reorder</mat-icon>
         </button>
@@ -129,9 +129,10 @@
         </th>
         <td mat-cell style="text-align: center" *matCellDef="let element">
           <button
+          [disabled]="!element.emp_avg"
           mat-icon-button
           color="primary"
-          (click)=openEmpKpiDialog(element.emp_id)
+          (click)=openEmpKpiDialog(element.emp_id,element.kpiSessionId)
         >
           <mat-icon class="mat-18">reorder</mat-icon>
         </button>

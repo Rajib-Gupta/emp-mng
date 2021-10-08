@@ -1,58 +1,93 @@
 <div class="login-wrapper" fxLayoutAlign="center center">
-    <mat-card class="box">
-      <div class="card-header">
-        <h1 class="card-title">Kpi Details</h1>
-      </div>
-      <br />
-        <mat-dialog-content>
-     
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong>How much you are available for the client regardless of time and day?:</strong>
-                  {{employee?.availability || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong>How much you are capable of submitting job on time? :</strong>
-                 {{employee?.ontime || 'N/A'}}</div>
-                </div>
+  <mat-card class="box">
+    <div class="card-header">
+      <h1 class="card-title">Kpi Details of  {{
+        employee?.session == 1
+          ? "Jan-April"
+          : employee?.session == 2
+          ? "May-August"
+          : "Sep-Dec" || "N/A"
+      }} in {{ employee?.year || "NA"}} </h1>
+    </div>
+    <br />
+    <mat-dialog-content>
     
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong>How much punctual you are?:</strong>
-                {{employee?.punctuality || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong>How much regular you are?:</strong>
-                 {{employee?.regularity || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong>How efficiently you deal with unexpected events?:</strong>
-                  {{employee?.timetorepair || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong> How much capable you are for solving critical problem?:</strong>
-                {{employee?.criticalproblemsolving || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong>How much efficiently you can andle your client?:</strong>
-                 {{employee?.clienthandling || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong> How much innovative and adative to new changes you are?:</strong>
-                  {{employee?. innovative || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong> How good team player you are?:</strong>
-               {{employee?.teamPlayer || 'N/A'}}</div>
-                </div>
-                <div fxLayout="row wrap" fxFlex>
-                  <div fxFlex><strong> How much management can depends upon you for company's growth?:</strong>
-                {{employee?.dependibility || 'N/A'}}</div>
-                </div>   
-  
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong
+            >How much you are available for the client regardless of time and
+            day?:</strong
+          >
+          {{ employee?.kpi_details?.availability || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>How much you are capable of submitting job on time? :</strong>
+          {{ employee?.kpi_details?.ontime || "N/A" }}
+        </div>
+      </div>
+
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>How much punctual you are?:</strong>
+          {{ employee?.kpi_details?.punctuality || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>How much regular you are?:</strong>
+          {{ employee?.kpi_details?.regularity || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>How efficiently you deal with unexpected events?:</strong>
+          {{ employee?.kpi_details?.timetorepair || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>
+            How much capable you are for solving critical problem?:</strong
+          >
+          {{ employee?.kpi_details?.criticalproblemsolving || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>How much efficiently you can andle your client?:</strong>
+          {{ employee?.kpi_details?.clienthandling || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>
+            How much innovative and adative to new changes you are?:</strong
+          >
+          {{ employee?.kpi_details?.innovative || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong> How good team player you are?:</strong>
+          {{ employee?.kpi_details?.teamPlayer || "N/A" }}
+        </div>
+      </div>
+      <div fxLayout="row wrap" fxFlex>
+        <div fxFlex>
+          <strong>
+            How much management can depends upon you for company's
+            growth?:</strong
+          >
+          {{ employee?.kpi_details?.dependibility || "N/A" }}
+        </div>
+      </div>
     </mat-dialog-content>
-              <mat-card-actions>
-                    <button type="button" mat-raised-button color="warn" (click)="onBack()">Go Back</button>
-              </mat-card-actions>
-     
-    </mat-card>
-  </div>
-  
+    <mat-card-actions>
+      <button type="button" mat-raised-button color="warn" (click)="onBack()">
+        Go Back
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

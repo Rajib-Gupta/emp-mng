@@ -160,9 +160,9 @@
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{
-                      element.session.session == 1
+                      element?.session?.session == 1
                         ? "Jan-April"
-                        : element.session.session == 2
+                        : element?.session?.session == 2
                         ? "May-Aug"
                         : "Sep-Dec"
                     }}

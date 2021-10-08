@@ -36,7 +36,7 @@ export class KpiDetailsComponent implements OnInit {
     const employeeByIdUrl: string = `get-kpi-data/${employeeId}/${givenById}`;
     this.repoService.getData(employeeByIdUrl).subscribe(
       (res: any) => {
-        this.employee = res.kpiData[0];
+        this.employee = res.kpiData[res.kpiData.length - 1];
          //console.log(this.employee);
        
       },
