@@ -153,7 +153,7 @@ export class KpiHistoryComponent implements OnInit {
     { value: 3, viewValue: 'Sep-Dec' },
   ];
 
-  openSupKpiDialog(sup_id: any,emp_id:any) {
+  openSupKpiDialog(sup_id: any,emp_id:any,kpiSessionId:any) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -161,13 +161,14 @@ export class KpiHistoryComponent implements OnInit {
     dialogConfig.data = {
       emp_id: emp_id,
       givenby_id:sup_id,
+      kpiSessionId:kpiSessionId,
       title: 'Add New Kpi Session',
     };
 
-    const dialogRef = this.dialog.open(KpiDetailsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(KpiDetailsHistoryComponent, dialogConfig);
   }
 
-  openEmpKpiDialog(id: any) {
+  openEmpKpiDialog(id: any,kpiSessionId:any) {
     const dialogConfig = new MatDialogConfig();
     // dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -175,9 +176,10 @@ export class KpiHistoryComponent implements OnInit {
     dialogConfig.data = {
       emp_id: id,
       givenby_id:id,
+      kpiSessionId:kpiSessionId,
       title: 'Add New Kpi Session',
     };
 
-    const dialogRef = this.dialog.open(KpiDetailsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(KpiDetailsHistoryComponent, dialogConfig);
   }
 }
