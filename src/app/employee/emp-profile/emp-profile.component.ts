@@ -135,11 +135,12 @@ export class EmpProfileComponent implements OnInit {
       emp_id: this.employee?.id,
     };
     // console.log('======>', details);
-
+    if(!Object.keys(details).length) return
     const sessionByUrl: string = `get-details-submitKpi/`;
     this.repoService.create(sessionByUrl, details).subscribe(
       (res: any) => {
         console.log(res.data);
+  
         this.kpiData = res.data as addKpi[];
         this.kpiData = this.kpiData.forEach((kpi: any) => {
           this.getKpiActiveStatus(kpi);
